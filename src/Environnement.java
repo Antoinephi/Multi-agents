@@ -26,7 +26,8 @@ public class Environnement {
 					if(r.nextInt(5) > 3 && MAX_AGENT > nbAgents && espace[i][j] == null){
 //						System.out.println("after");
 //						System.out.println("loop : i :" + i + " j : " + j);
-						espace[i][j] = new Agent(i, j, 0, this);
+						espace[i][j] = new Agent(i, j, r.nextInt(2)-1,r.nextInt(3)-1, this);
+						System.out.println(espace[i][j].getDirX() +" "+ espace[i][j].getDirY());
 						nbAgents++;
 					}
 				}
@@ -70,7 +71,7 @@ public class Environnement {
 	public boolean update(Agent agent, int x, int y) throws Exception {
 		if(isAvailable(x, y)){
 			this.espace[(x+espace.length-1)%espace.length][(y+espace.length-1)%espace.length] = agent;
-			this.espace[(agent.getPosX()+espace.length-1)%espace.length][(agent.getPosY()+espace.length-1)%espace.length] = null;
+			this.espace[agent.getPosX()][agent.getPosY()] = null;
 			return true;
 		} else {
 			agent.setDirX(-1*agent.getDirX());

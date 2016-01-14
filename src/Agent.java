@@ -10,19 +10,19 @@ public class Agent {
 	private Environnement env;
 	private int[] localEnv;
 	
-	public Agent(int posX, int posY, int direction, Environnement env){
+	public Agent(int posX, int posY, int dirX, int dirY, Environnement env){
 		this.posX = posX;
 		this.posY = posY;
 //		this.direction = direction;
-		this.dirX = 1;
-		this.dirY = 1;
+		this.dirX = (dirX+env.getAgents().length-1)%env.getAgents().length;
+		this.dirY = (dirY+env.getAgents().length-1)%env.getAgents().length;
 		this.env = env;
 		this.localEnv = env.getLocalEnv(posX, posY);
 	}
 	
 	public void decide() throws Exception{
 
-		if(env.update(this, (posX+dirX)%10, (posY+dirY)%10)){
+		if(env.update(this, ((posX+dirX)+env.getAgents().length-1)%env.getAgents().length, ((posY+dirY)+env.getAgents().length-1)%env.getAgents().length)){
 			this.posX+=dirX;
 			this.posX%=10;	
 			this.posY+=dirY;
