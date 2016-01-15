@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,13 +8,12 @@ import java.util.Random;
 public class SMA {
 	
 	private Environnement env;
-	private static List<Agent> agents = new LinkedList<Agent>();
+	private static List<Agent> agents;;
 	
 	public SMA(){
 		env = new Environnement(10,10);
 		env.print();
-		for(Agent[] a : env.getAgents())
-			agents.addAll(Arrays.asList(a));
+		agents = env.getAgents();
 	}
 	
 	public void run(int nbTurns) throws Exception{
@@ -53,6 +51,11 @@ public class SMA {
 	public static void main(String[] args) throws Exception {
 		SMA sma = new SMA();
 		sma.run(1000);
+//		
+//		for(int x = 0; x <20; x++){
+//			System.out.println("x : " + x + " %  : " + (x+10)%10);
+//		
+//	}
 	}
 	
 }

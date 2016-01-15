@@ -1,10 +1,12 @@
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
 public class Environnement {
 	
 	private Agent[][] espace;
-//	private List<Agent> agents;
+	private List<Agent> agents;
 //	private Agent[][] agents;
 	private static int MAX_AGENT = 1;
 	
@@ -12,7 +14,7 @@ public class Environnement {
 	
 	public Environnement(int sizeX, int sizeY){
 		this.espace = new Agent[sizeX][sizeY];
-//		agents = new ArrayList<Agent>();
+		agents = new LinkedList<Agent>();
 //		agents = new Agent[sizeX][sizeY];
 		init();
 		
@@ -27,6 +29,7 @@ public class Environnement {
 //						System.out.println("after");
 //						System.out.println("loop : i :" + i + " j : " + j);
 						espace[i][j] = new Agent(i, j, r.nextInt(2)-1,r.nextInt(3)-1, this);
+						this.agents.add(espace[i][j]);
 						System.out.println(espace[i][j].getDirX() +" "+ espace[i][j].getDirY());
 						nbAgents++;
 					}
@@ -37,12 +40,7 @@ public class Environnement {
 	}
 	
 
-	public void update() throws Exception{
-		for(Agent[] agents : espace){
-			for(Agent a : agents)
-				a.decide(); 				
-		}
-	}
+
 	
 	public int[] getLocalEnv(int x, int y){
 		int[] localEnv = new int[9];
@@ -70,7 +68,7 @@ public class Environnement {
 	
 	public boolean update(Agent agent, int x, int y) throws Exception {
 		if(isAvailable(x, y)){
-			this.espace[(x+espace.length-1)%espace.length][(y+espace.length-1)%espace.length] = agent;
+			this.espace[(x+espace.length)%espace.length][(y+espace.length)%espace.length] = agent;
 			this.espace[agent.getPosX()][agent.getPosY()] = null;
 			return true;
 		} else {
@@ -94,8 +92,12 @@ public class Environnement {
 		System.out.println();
 	}
 
-	public Agent[][] getAgents() {
+	public Agent[][] getEspace() {
 		return espace;
+	}
+	
+	public List<Agent> getAgents(){
+		return this.agents;
 	}
 	
 	 

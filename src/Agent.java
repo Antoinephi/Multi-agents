@@ -14,15 +14,15 @@ public class Agent {
 		this.posX = posX;
 		this.posY = posY;
 //		this.direction = direction;
-		this.dirX = (dirX+env.getAgents().length-1)%env.getAgents().length;
-		this.dirY = (dirY+env.getAgents().length-1)%env.getAgents().length;
+		this.dirX = (dirX+env.getEspace().length-1)%env.getEspace().length;
+		this.dirY = (dirY+env.getEspace().length-1)%env.getEspace().length;
 		this.env = env;
 		this.localEnv = env.getLocalEnv(posX, posY);
 	}
 	
 	public void decide() throws Exception{
 
-		if(env.update(this, ((posX+dirX)+env.getAgents().length-1)%env.getAgents().length, ((posY+dirY)+env.getAgents().length-1)%env.getAgents().length)){
+		if(env.update(this, ((posX+dirX)+env.getEspace().length-1)%env.getEspace().length, ((posY+dirY)+env.getEspace().length-1)%env.getEspace().length)){
 			this.posX+=dirX;
 			this.posX%=10;	
 			this.posY+=dirY;
