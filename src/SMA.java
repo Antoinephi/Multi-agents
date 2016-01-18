@@ -1,17 +1,19 @@
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 
 
 
-public class SMA {
+public class SMA extends Observable {
 	
 	private Environnement env;
 	private static List<Agent> agents;;
 	
 	public SMA(){
 		env = new Environnement(10,10);
+		env.setAgent(0, 0, 1, 1);
+		env.setAgent(3, 0, 0, 1);
 		env.print();
 		agents = env.getAgents();
 	}
@@ -47,9 +49,14 @@ public class SMA {
 	    }
 	  }
 	
+	public Environnement getEnv(){
+		return this.env;
+	}
 
 	public static void main(String[] args) throws Exception {
 		SMA sma = new SMA();
+		View v = new View(100);
+		v.addAgent(new Agent(0, 0, 0, 0, new Environnement(1, 1)));
 		sma.run(1000);
 //		
 //		for(int x = 0; x <20; x++){

@@ -13,20 +13,18 @@ public class Agent {
 	public Agent(int posX, int posY, int dirX, int dirY, Environnement env){
 		this.posX = posX;
 		this.posY = posY;
-//		this.direction = direction;
-		this.dirX = (dirX+env.getEspace().length-1)%env.getEspace().length;
-		this.dirY = (dirY+env.getEspace().length-1)%env.getEspace().length;
+		this.dirX = dirX;
+		this.dirY = dirY;
 		this.env = env;
 		this.localEnv = env.getLocalEnv(posX, posY);
 	}
 	
 	public void decide() throws Exception{
+//		System.out.println("posX : " +posX + " + dirX : " + dirX);
 
-		if(env.update(this, ((posX+dirX)+env.getEspace().length-1)%env.getEspace().length, ((posY+dirY)+env.getEspace().length-1)%env.getEspace().length)){
-			this.posX+=dirX;
-			this.posX%=10;	
-			this.posY+=dirY;
-			this.posY%=10;
+		if(env.update(this, ((posX+dirX)+env.getEspace().length)%env.getEspace().length, ((posY+dirY)+env.getEspace().length)%env.getEspace().length)){
+			this.posX = ((posX+dirX)+env.getEspace().length)%env.getEspace().length;	
+			this.posY = ((posY+dirY)+env.getEspace().length)%env.getEspace().length;
 		}
 	}
 
