@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
 
-public class Cell {
+public class Cell extends JPanel{
 	
 	private Graphics g;
 	private int x;
@@ -14,21 +15,37 @@ public class Cell {
 	
 	
 
-	public Cell(Graphics g, int x, int y, int r) {
+	public Cell(Graphics g, int x, int y) {
 		super();
 		this.g = g;
 		this.x = x;
 		this.y = y;
-		this.r = r;
+		this.r = 10;
 		this.setBackground(Color.black);
 	}
-
-
-
-	public void drawCenteredCircle(Graphics g, int x, int y, int r) {
-		  x = x-(r/2);
-		  y = y-(r/2);
-		  g.setColor(Color.BLUE);
-		  g.fillOval(x,y,r,r);
+	
+	public Cell(){
+		super();
+		this.r = 10;
+		this.setBackground(Color.BLUE);
+	}
+	
+	public void paintComponent(Graphics g){
+		Random r = new Random();
+		for(int i = 0; i < 10; i++){
+			g.setColor(new Color(r.nextInt(256)));
+			g.fillOval(i*10,i*10, 10, 10);
+			this.setVisible(true);
 		}
+
+	}
+	
+	public void setPosX(int x){
+		this.x = x;
+	}
+	
+	public void setPoxY(int y){
+		this.y = y;
+	}
+	
 }
