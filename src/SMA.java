@@ -11,11 +11,11 @@ public class SMA extends Observable {
 	private static List<Agent> agents;;
 	
 	public SMA(){
-		env = new Environnement(100,100);
+		env = new Environnement(125,125, false);
 //		env.setAgent(0, 0, 1, 1);
 //		env.setAgent(3, 0, 0, 1);
-		env.print();
-		View v = new View(200, "Billes");
+//		env.print();
+		View v = new View(500, "Billes");
 		agents = env.getAgents();
 		this.addObserver(v);
 	}
@@ -23,14 +23,14 @@ public class SMA extends Observable {
 	public void run(int nbTurns) throws Exception{
 		for(int i = 0; i < nbTurns; i++){
 			turn();
-			Thread.sleep(100);
+			Thread.sleep(50);
 //			env.print();
 		}
 	}
 	
 
 	public void turn() throws Exception{
-		System.out.println("Nombre d'agents : " + agents.size());
+//		System.out.println("Nombre d'agents : " + agents.size());
 		
 		for(Agent a : agents){
 			a.decide();

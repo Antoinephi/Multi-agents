@@ -26,9 +26,16 @@ public class Agent {
 	public void decide() throws Exception{
 //		System.out.println("posX : " +posX + " + dirX : " + dirX);
 
-		if(env.update(this, ((posX+dirX)+env.getEspace().length)%env.getEspace().length, ((posY+dirY)+env.getEspace().length)%env.getEspace().length)){
-			this.posX = ((posX+dirX)+env.getEspace().length)%env.getEspace().length;	
-			this.posY = ((posY+dirY)+env.getEspace().length)%env.getEspace().length;
+		if(env.isToric()){
+			if(env.update(this, ((posX+dirX)+env.getEspace().length)%env.getEspace().length, ((posY+dirY)+env.getEspace().length)%env.getEspace().length)){
+				this.posX = ((posX+dirX)+env.getEspace().length)%env.getEspace().length;	
+				this.posY = ((posY+dirY)+env.getEspace().length)%env.getEspace().length;
+			}
+		} else {
+			if(env.update(this, posX+dirX, posY+dirY)){
+				this.posX +=dirX;
+				this.posY +=dirY;
+			}
 		}
 	}
 
