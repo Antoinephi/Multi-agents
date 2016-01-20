@@ -1,3 +1,4 @@
+package core;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,12 +14,15 @@ public class View implements Observer 	{
 
 	private JPanel panel;
 	private JFrame frame;
+	private int cellSize;
 	
-	public View(int gridSize, String name) {
+	public View(int gridSize,int cellSize, String name) {
 		this.frame = new JFrame(name);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);
+		
+		this.cellSize = cellSize;
 		
 		this.panel = new JPanel();
 		this.panel.setPreferredSize(new Dimension(gridSize,gridSize));
@@ -42,7 +46,7 @@ public class View implements Observer 	{
 
 	public void draw(Agent a, Graphics g){
 			g.setColor(a.getColor());
-			g.fillOval(a.getPosX()*4, a.getPosY()*4, 10, 10);
+			g.fillOval(a.getPosX()*this.cellSize, a.getPosY()*this.cellSize, this.cellSize, this.cellSize);
 	}
 		
 }

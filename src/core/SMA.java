@@ -1,3 +1,4 @@
+package core;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -8,14 +9,14 @@ import java.util.Random;
 public class SMA extends Observable {
 	
 	private Environnement env;
-	private static List<Agent> agents;;
+	private static List<Agent> agents;
+	private int speed;
 	
-	public SMA(){
-		env = new Environnement(125,125, false);
-//		env.setAgent(0, 0, 1, 1);
-//		env.setAgent(3, 0, 0, 1);
-//		env.print();
-		View v = new View(500, "Billes");
+	public SMA(int nbAgents, int viewSize, int cellSize, int speed, boolean toric) throws Exception{
+		int envSize = viewSize/cellSize;
+		env = new Environnement(envSize,envSize, nbAgents, toric);
+		this.speed = speed;
+		View v = new View(viewSize,cellSize, "Billes");
 		agents = env.getAgents();
 		this.addObserver(v);
 	}
@@ -23,8 +24,7 @@ public class SMA extends Observable {
 	public void run(int nbTurns) throws Exception{
 		for(int i = 0; i < nbTurns; i++){
 			turn();
-			Thread.sleep(50);
-//			env.print();
+			Thread.sleep(this.speed);
 		}
 	}
 	
@@ -39,7 +39,6 @@ public class SMA extends Observable {
 		this.setChanged();
 		this.notifyObservers();		
 		Collections.shuffle(agents);
-
 	}
 	
 	 static void shuffleArray(int[] ar)
@@ -64,8 +63,8 @@ public class SMA extends Observable {
 	}
 
 	public static void main(String[] args) throws Exception {
-		SMA sma = new SMA();
-		sma.run(10000);
+		SMA sma = new SMA(500,1000, 8, 30, false);
+		sma.run(1000);
 //		
 //		for(int x = 0; x <20; x++){
 //			System.out.println("x : " + x + " %  : " + (x+10)%10);

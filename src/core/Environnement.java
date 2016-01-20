@@ -1,6 +1,9 @@
+package core;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import particules.Particule;
 
 
 public class Environnement {
@@ -8,33 +11,48 @@ public class Environnement {
 	private Agent[][] espace;
 	private List<Agent> agents;
 //	private Agent[][] agents;
-	private static int MAX_AGENT = 10;
+	private static int MAX_AGENT;
 	private boolean toric = false;
 	Random r = new Random();
 	
-	public Environnement(int sizeX, int sizeY, boolean toric){
+	public Environnement(int sizeX, int sizeY,int nbAgents, boolean toric) throws Exception{
 		this.espace = new Agent[sizeX][sizeY];
 		agents = new LinkedList<Agent>();
+		if(nbAgents > sizeX * sizeY) throw new Exception("Reduce agents number or increase environnement's size !");
+		MAX_AGENT = nbAgents;
 		init();
 		this.toric = toric;
 		
 	}
 	
+//	private void init(){
+//		int nbAgents = 0;
+//		while(nbAgents < MAX_AGENT){
+//			for(int i = 0; i < espace.length; i++ ){
+//				for(int j = 0; j < espace.length; j++){
+//					if(r.nextInt(1000) > 998 && MAX_AGENT > nbAgents && espace[i][j] == null){
+//						espace[i][j] = new Agent(i, j, r.nextInt(2)+1,r.nextInt(3)-1, this);
+//						this.agents.add(espace[i][j]);
+////						System.out.println(espace[i][j]);
+//						nbAgents++;
+//					}
+//				}
+//			}
+//		}
+//	}
+	
+	
 	private void init(){
 		int nbAgents = 0;
 		while(nbAgents < MAX_AGENT){
-			for(int i = 0; i < espace.length; i++ ){
-				for(int j = 0; j < espace.length; j++){
-					if(r.nextInt(1000) > 998 && MAX_AGENT > nbAgents && espace[i][j] == null){
-						espace[i][j] = new Agent(i, j, r.nextInt(2)+1,r.nextInt(3)-1, this);
-						this.agents.add(espace[i][j]);
-//						System.out.println(espace[i][j]);
-						nbAgents++;
-					}
-				}
-			}
+			int x = r.nextInt(espace.length);
+			int y  = r.nextInt(espace.length);
+			int dirX = r.nextInt(3);
+			int dirY = r.nextInt(3);
+			dirX += (dirX == 0 && dirY == 0 ? 1 : 0);
+			espace[x][y] = new Particule(x, y, dirX, dirY, this);
 		}
-	}
+	}	
 	
 	public int[] getLocalEnv(int x, int y){
 		int[] localEnv = new int[9];
@@ -73,7 +91,7 @@ public class Environnement {
 		if(this.toric){
 			newX = (newX+espace.length)%espace.length;
 			newY = (newY+espace.length)%espace.length;
-			System.out.println("x : " + x + " y : " +y);
+//			System.out.println("x : " + x + " y : " +y);
 			oldX = (oldX+espace.length)%espace.length;
 			oldY = (oldY+espace.length)%espace.length;
 		}
@@ -84,15 +102,20 @@ public class Environnement {
 			this.espace[oldX][oldY] = null;
 			return true;
 		} else {
-			agent.setDirX(-1*agent.getDirX());
-			agent.setDirY(-1*agent.getDirY());
-			if(x < this.espace.length-1 && x >= 0 && y < this.espace.length-1 && y >=0){			
+			if(x < this.espace.length-1 && x >= 0 && y < this.espace.length-1 && y >=0){	
+				agent.setDirX(-1*agent.getDirX());
+				agent.setDirY(-1*agent.getDirY());
 				if(this.espace[x][y] != null){
 					this.espace[x][y].setDirX(-1*this.espace[x][y].getDirX());
 					this.espace[x][y].setDirY(-1*this.espace[x][y].getDirY());
 	//				this.espace[x][y].decide();
 	//				(espace[x][y], (x+this.espace[x][y].getDirX()+this.espace.length)%this.espace.length, (y+this.espace[x][y].getDirY()+this.espace.length)%this.espace.length);
 				}
+			} else {
+				if(x >= this.espace.length-1 || x <= 1)
+					agent.setDirX(-1*agent.getDirX());
+				if(y >= this.espace.length-1 || y <= 1)
+					agent.setDirY(-1*agent.getDirY());
 			}
 		}
 		return false;
@@ -121,7 +144,7 @@ public class Environnement {
 	}
 	
 	public void setAgent(int x, int y, int dirX, int dirY){
-		this.espace[x][y] = new Agent(x, y, dirX, dirY, this);
+		this.espace[x][y] = new Particule(x, y, dirX, dirY, this);
 		this.agents.add(espace[x][y]);
 	}
 
