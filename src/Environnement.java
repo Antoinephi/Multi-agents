@@ -8,7 +8,7 @@ public class Environnement {
 	private Agent[][] espace;
 	private List<Agent> agents;
 //	private Agent[][] agents;
-	private static int MAX_AGENT = 2;
+	private static int MAX_AGENT = 10;
 	
 	Random r = new Random();
 	
@@ -16,7 +16,7 @@ public class Environnement {
 		this.espace = new Agent[sizeX][sizeY];
 		agents = new LinkedList<Agent>();
 //		agents = new Agent[sizeX][sizeY];
-//		init();
+		init();
 		
 	}
 	

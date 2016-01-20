@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.util.Arrays;
+import java.util.Random;
 
 
 public class Agent {
@@ -9,13 +11,15 @@ public class Agent {
 	private int dirY;
 	private Environnement env;
 	private int[] localEnv;
-	
+	private Color c;
+	private Random r = new Random();
 	public Agent(int posX, int posY, int dirX, int dirY, Environnement env){
 		this.posX = posX;
 		this.posY = posY;
 		this.dirX = dirX;
 		this.dirY = dirY;
 		this.env = env;
+		this.c = new Color(r.nextInt(200), r.nextInt(200), r.nextInt(200));
 		this.localEnv = env.getLocalEnv(posX, posY);
 	}
 	
@@ -61,6 +65,9 @@ public class Agent {
 		return this.dirY;
 	}
 	
+	public Color getColor(){
+		return this.c;
+	}
 	
 	
 }

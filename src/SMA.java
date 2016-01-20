@@ -11,29 +11,35 @@ public class SMA extends Observable {
 	private static List<Agent> agents;;
 	
 	public SMA(){
-		env = new Environnement(10,10);
-		env.setAgent(0, 0, 1, 1);
-		env.setAgent(3, 0, 0, 1);
+		env = new Environnement(100,100);
+//		env.setAgent(0, 0, 1, 1);
+//		env.setAgent(3, 0, 0, 1);
 		env.print();
+		View v = new View(200, "Billes");
 		agents = env.getAgents();
+		this.addObserver(v);
 	}
 	
 	public void run(int nbTurns) throws Exception{
 		for(int i = 0; i < nbTurns; i++){
 			turn();
-			Thread.sleep(1000);
-			env.print();
+			Thread.sleep(100);
+//			env.print();
 		}
 	}
 	
 
 	public void turn() throws Exception{
 		System.out.println("Nombre d'agents : " + agents.size());
+		
 		for(Agent a : agents){
-			if(a !=  null)
 			a.decide();
 		}
+
+		this.setChanged();
+		this.notifyObservers();		
 		Collections.shuffle(agents);
+
 	}
 	
 	 static void shuffleArray(int[] ar)
@@ -52,12 +58,14 @@ public class SMA extends Observable {
 	public Environnement getEnv(){
 		return this.env;
 	}
+	
+	public List<Agent> getAgents(){
+		return this.agents;
+	}
 
 	public static void main(String[] args) throws Exception {
 		SMA sma = new SMA();
-		View v = new View(100);
-		v.addAgent(new Agent(0, 0, 0, 0, new Environnement(1, 1)));
-		sma.run(1000);
+		sma.run(10000);
 //		
 //		for(int x = 0; x <20; x++){
 //			System.out.println("x : " + x + " %  : " + (x+10)%10);
