@@ -1,4 +1,5 @@
 package core;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -25,20 +26,34 @@ public class Environnement {
 		
 	}
 		
-	public int[] getLocalEnv(int x, int y){
-		int[] localEnv = new int[9];
-		int cursor = 0;
-		for(int i = x-1; i<x+1; i++){
-			for(int j = y-1; j < y+1; j++){
-				if(i == x && j == y) continue;
-				if(i < 0)
-					i += espace.length;
-				if(j < 0)
-					j += espace.length;
-				localEnv[cursor] = (espace[i%espace.length][j%espace.length] == null ? 0 : 1);
+	public Agent[][] getLocalEnv(int x, int y){
+		Agent[][] localEnv = new Agent[3][3];
+		int newX = x;
+		int newY = y;
+		for(int i = -1; i < localEnv.length-1; i++){
+			for(int j = -1; j < localEnv.length-1; j++){
+				if(this.toric){
+					newX = (x+i+this.espace.length)%this.espace.length;
+					newY = (j+y+this.espace.length)%this.espace.length;
+					localEnv[i+1][j+1] = this.espace[newX][newY]; 
+				} else if(!this.toric && (x+i > this.espace.length || x+j > this.espace.length || x+i < 0 || y+j < 0)) {
+						localEnv[i+1][j+1] = null;
+				} else {
+					localEnv[i+1][j+1] = this.espace[newX+i][newY+j];
+				
+				}
+
 			}
 		}
-		
+//		for(int i = 0; i < localEnv.length; i++){
+//			for(int j = 0; j < localEnv.length; j++){
+//				if(localEnv[i][j] == null)
+//					System.out.print(" 0 ");
+//				else
+//					System.out.print(" 1 ");
+//			}
+//			System.out.println();
+//		}
 		return localEnv;
 	}
 
@@ -57,14 +72,11 @@ public class Environnement {
 		if(this.toric){
 			newX = (newX+espace.length)%espace.length;
 			newY = (newY+espace.length)%espace.length;
-//			System.out.println("x : " + x + " y : " +y);
 			oldX = (oldX+espace.length)%espace.length;
 			oldY = (oldY+espace.length)%espace.length;
 		}
 		if(isAvailable(newX, newY)){
-//			System.out.println("x : " + x + " y : " +y);
 			this.espace[newX][newY] = agent;
-//			System.out.println("x : " + agent.getPosX() + " y : " +agent.getPosY());
 			this.espace[oldX][oldY] = null;
 			return true;
 		} else {
@@ -74,8 +86,6 @@ public class Environnement {
 				if(this.espace[x][y] != null){
 					this.espace[x][y].setDirX(this.espace[x][y].getDirX() == 0 ? -1*agent.getDirX() : -1*this.espace[x][y].getDirX());
 					this.espace[x][y].setDirY(this.espace[x][y].getDirY() == 0 ? -1*agent.getDirY() : -1*this.espace[x][y].getDirY());
-	//				this.espace[x][y].decide();
-	//				(espace[x][y], (x+this.espace[x][y].getDirX()+this.espace.length)%this.espace.length, (y+this.espace[x][y].getDirY()+this.espace.length)%this.espace.length);
 				}
 			} else {
 				if(x >= this.espace.length-1 || x <= 1)

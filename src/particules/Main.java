@@ -15,14 +15,14 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		View v = new ParticulesView(VIEW_SIZE,CELL_SIZE, "Particules simulation");
-		System.out.println("pl");
 
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS);
 		for(int i = 0; i < NB_AGENTS; i++){
 			new Particule(sma.getEnv());
 		}
-		new Particule(50, 50, 1,1,sma.getEnv());
-		sma.run(NB_TURNS);
+		new Particule(4, 5, 1,1,sma.getEnv());
+//		sma.run(NB_TURNS);
+		sma.getEnv().getLocalEnv(5, 5);
 		
 		
 	}

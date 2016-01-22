@@ -51,6 +51,12 @@ public abstract class Agent {
 	
 	public abstract void decide() throws Exception;
 	
+	public boolean isAvailable(int x, int y){
+		Agent[][] localEnv = this.env.getLocalEnv(this.getPosX(), this.getPosY());
+		
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Agent [posX=" + posX + ", posY=" + posY + ", dirX=" + dirX
