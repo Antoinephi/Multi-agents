@@ -17,28 +17,14 @@ public class Environnement {
 	public Environnement(int sizeX, int sizeY,int nbAgents, boolean toric) throws Exception{
 		this.espace = new Agent[sizeX][sizeY];
 		agents = new LinkedList<Agent>();
+
 		if(nbAgents > sizeX * sizeY) throw new Exception("Reduce agents number or increase environnement's size !");
 		MAX_AGENT = nbAgents;
-		init();
+
 		this.toric = toric;
 		
 	}
-	
-	private void init(){
-		int nbAgents = 0;
-		while(nbAgents < MAX_AGENT){
-			int x = r.nextInt(espace.length);
-			int y  = r.nextInt(espace.length);
-			int dirX = r.nextInt(3);
-			int dirY = r.nextInt(3);
-			dirX += (dirX == 0 && dirY == 0 ? 1 : 0);
-			if(espace[x][y] == null){
-				espace[x][y] = new Particule(x, y, dirX, dirY, this);
-				this.agents.add(espace[x][y]);
-			}
-		}
-	}	
-	
+		
 	public int[] getLocalEnv(int x, int y){
 		int[] localEnv = new int[9];
 		int cursor = 0;
@@ -82,12 +68,12 @@ public class Environnement {
 			this.espace[oldX][oldY] = null;
 			return true;
 		} else {
-			if(x < this.espace.length-1 && x >= 0 && y < this.espace.length-1 && y >=0){	
+			if(x < this.espace.length-1 && x >= 0 && y < this.espace.length-1 && y >=0){
 				agent.setDirX(-1*agent.getDirX());
 				agent.setDirY(-1*agent.getDirY());
 				if(this.espace[x][y] != null){
-					this.espace[x][y].setDirX(-1*this.espace[x][y].getDirX());
-					this.espace[x][y].setDirY(-1*this.espace[x][y].getDirY());
+					this.espace[x][y].setDirX(this.espace[x][y].getDirX() == 0 ? -1*agent.getDirX() : -1*this.espace[x][y].getDirX());
+					this.espace[x][y].setDirY(this.espace[x][y].getDirY() == 0 ? -1*agent.getDirY() : -1*this.espace[x][y].getDirY());
 	//				this.espace[x][y].decide();
 	//				(espace[x][y], (x+this.espace[x][y].getDirX()+this.espace.length)%this.espace.length, (y+this.espace[x][y].getDirY()+this.espace.length)%this.espace.length);
 				}
@@ -117,6 +103,13 @@ public class Environnement {
 
 	public Agent[][] getEspace() {
 		return espace;
+	}
+	
+	public void addAgent(Agent a) throws Exception{
+		if(this.espace[a.getPosX()][a.getPosY()] != null)
+			throw new Exception("Error : cannot place new agent on top of another one !");
+		this.espace[a.getPosX()][a.getPosY()] = a;
+		this.agents.add(a);
 	}
 	
 	public List<Agent> getAgents(){

@@ -17,6 +17,7 @@ public abstract class View implements Observer 	{
 	protected int cellSize;
 	
 	public View(int gridSize,int cellSize, String name) {
+
 		this.frame = new JFrame(name);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

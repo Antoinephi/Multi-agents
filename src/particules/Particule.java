@@ -8,6 +8,10 @@ public class Particule extends Agent{
 	public Particule(int posX, int posY, int dirX, int dirY, Environnement env) {
 		super(posX, posY, dirX, dirY, env);
 	}
+	
+	public Particule(Environnement env){
+		super(env);
+	}
 
 	public void decide() throws Exception{
 
