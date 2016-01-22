@@ -11,7 +11,6 @@ public abstract class Agent {
 	protected int dirX;
 	protected int dirY;
 	protected Environnement env;
-	protected int[] localEnv;
 	protected Color c;
 	protected Random r = new Random();
 	
@@ -22,7 +21,21 @@ public abstract class Agent {
 		this.dirY = dirY;
 		this.env = env;
 		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
-		this.localEnv = env.getLocalEnv(posX, posY);
+	}
+	
+	public Agent(Environnement env){
+		this.env = env;
+		
+		int posX = r.nextInt(env.getEnvSize()-1);
+		int posY = r.nextInt(env.getEnvSize()-1);
+		while(env.getCell(posX, posY) != null){
+			posX = r.nextInt(env.getEnvSize()-1);
+			posY = r.nextInt(env.getEnvSize()-1);
+		}
+		this.posX = posX;
+		this.posY = posY;
+		this.dirX = r.nextInt(3);
+		this.dirY = r.nextInt(3);
 	}
 	
 	public abstract void decide() throws Exception;
@@ -30,8 +43,7 @@ public abstract class Agent {
 	@Override
 	public String toString() {
 		return "Agent [posX=" + posX + ", posY=" + posY + ", dirX=" + dirX
-				+ ", dirY=" + dirY + ", env=" + env + ", localEnv="
-				+ Arrays.toString(localEnv) + "]";
+				+ ", dirY=" + dirY + ", env=" + env  + "]";
 	}
 
 	public int getPosX() {

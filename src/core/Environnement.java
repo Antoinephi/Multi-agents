@@ -10,7 +10,6 @@ public class Environnement {
 	
 	private Agent[][] espace;
 	private List<Agent> agents;
-//	private Agent[][] agents;
 	private static int MAX_AGENT;
 	private boolean toric = false;
 	Random r = new Random();
@@ -25,23 +24,6 @@ public class Environnement {
 		
 	}
 	
-//	private void init(){
-//		int nbAgents = 0;
-//		while(nbAgents < MAX_AGENT){
-//			for(int i = 0; i < espace.length; i++ ){
-//				for(int j = 0; j < espace.length; j++){
-//					if(r.nextInt(1000) > 998 && MAX_AGENT > nbAgents && espace[i][j] == null){
-//						espace[i][j] = new Agent(i, j, r.nextInt(2)+1,r.nextInt(3)-1, this);
-//						this.agents.add(espace[i][j]);
-////						System.out.println(espace[i][j]);
-//						nbAgents++;
-//					}
-//				}
-//			}
-//		}
-//	}
-	
-	
 	private void init(){
 		int nbAgents = 0;
 		while(nbAgents < MAX_AGENT){
@@ -50,7 +32,10 @@ public class Environnement {
 			int dirX = r.nextInt(3);
 			int dirY = r.nextInt(3);
 			dirX += (dirX == 0 && dirY == 0 ? 1 : 0);
-			espace[x][y] = new Particule(x, y, dirX, dirY, this);
+			if(espace[x][y] == null){
+				espace[x][y] = new Particule(x, y, dirX, dirY, this);
+				this.agents.add(espace[x][y]);
+			}
 		}
 	}	
 	
@@ -72,11 +57,6 @@ public class Environnement {
 	}
 
 	public boolean isAvailable(int x, int y) {
-//		System.out.println("x " + x +" y " +  y);
-//		System.out.println("x " + (x+espace.length-1)%espace.length +" y " +  (y+espace.length-1)%espace.length);
-//		if(!this.toric)
-//			return this.espace[(x+espace.length)%espace.length][(y+espace.length)%espace.length] == null;
-		
 		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0)
 			return this.espace[x][y] == null;
 		return false;
@@ -150,6 +130,14 @@ public class Environnement {
 
 	public boolean isToric() {
 		return this.toric;
+	}
+	
+	public int getEnvSize(){
+		return this.espace.length;
+	}
+	
+	public Agent getCell(int x, int y){
+		return this.espace[x][y];
 	}
 	
 	 

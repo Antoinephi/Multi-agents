@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class View implements Observer 	{
+public abstract class View implements Observer 	{
 
-	private JPanel panel;
-	private JFrame frame;
-	private int cellSize;
+	protected JPanel panel;
+	protected JFrame frame;
+	protected int cellSize;
 	
 	public View(int gridSize,int cellSize, String name) {
 		this.frame = new JFrame(name);
@@ -43,10 +43,9 @@ public class View implements Observer 	{
 		
 	}
 	
+	public abstract void draw(Agent a, Graphics g);
+	
 
-	public void draw(Agent a, Graphics g){
-			g.setColor(a.getColor());
-			g.fillOval(a.getPosX()*this.cellSize, a.getPosY()*this.cellSize, this.cellSize, this.cellSize);
-	}
+
 		
 }
