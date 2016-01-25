@@ -1,15 +1,15 @@
-package particules;
+package particles;
 
 import core.Agent;
 import core.Environnement;
 
-public class Particule extends Agent{
+public class Particle extends Agent{
 
-	public Particule(int posX, int posY, int dirX, int dirY, Environnement env) {
+	public Particle(int posX, int posY, int dirX, int dirY, Environnement env) {
 		super(posX, posY, dirX, dirY, env);
 	}
 	
-	public Particule(Environnement env){
+	public Particle(Environnement env){
 		super(env);
 	}
 
@@ -29,9 +29,7 @@ public class Particule extends Agent{
 			oldX = env.convertToToric(oldX);
 			oldY = env.convertToToric(oldY);
 		}
-		
 		if(this.env.isAvailable(newX, newY)){
-//			System.out.println("newX : " + newX + "newY : " + newY);
 			this.env.moveAgent(this, newX, newY);
 			this.posX = newX;
 			this.posY = newY;
@@ -40,14 +38,9 @@ public class Particule extends Agent{
 				this.dirX = -1*this.dirX;
 				this.dirY = -1*this.dirY;
 				Agent agent = this.env.getCell(newX, newY);
-				agent.setDirX(-1*agent.getDirX());
-				agent.setDirY(-1*agent.getDirY());
-				if(this.env.isToric()){
-//					this.env.update
-//					this.espace[x][y].setDirX(this.espace[x][y].getDirX() == 0 ? -1*agent.getDirX() : -1*this.espace[x][y].getDirX());
-//					this.espace[x][y].setDirY(this.espace[x][y].getDirY() == 0 ? -1*agent.getDirY() : -1*this.espace[x][y].getDirY());
-				}
-			} else {
+				agent.setDirX(agent.getDirX() == 0 ? -1*this.getDirX() : -1*agent.getDirX());
+				agent.setDirY(agent.getDirY() == 0 ? -1*this.getDirY() : -1*agent.getDirY());
+			} else if(!this.env.isToric()){
 				if(newX >= this.env.getEnvSize() || newX <= 1)
 					this.dirX = -1*this.dirX;
 				if(newY >= this.env.getEnvSize() || newY <= 1)

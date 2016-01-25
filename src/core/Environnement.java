@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import particules.Particule;
+import particles.Particle;
 
 
 public class Environnement {
@@ -58,17 +58,13 @@ public class Environnement {
 	}
 
 	public boolean isAvailable(int x, int y) {
-		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0)
+		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0){
 			return this.espace[x][y] == null;
+		}
 		return false;
 	}
 
-	
-//	public boolean update(Agent agent, int x, int y) throws Exception {
-//				
-//	}
-		
-	public void print(){
+		public void print(){
 		for(int i = 0; i < espace.length; i++ ){
 			System.out.println();
 			for(int j = 0; j < espace.length; j++){
@@ -97,7 +93,7 @@ public class Environnement {
 	}
 	
 	public void setAgent(int x, int y, int dirX, int dirY){
-		this.espace[x][y] = new Particule(x, y, dirX, dirY, this);
+		this.espace[x][y] = new Particle(x, y, dirX, dirY, this);
 		this.agents.add(espace[x][y]);
 	}
 
@@ -119,6 +115,7 @@ public class Environnement {
 
 	public boolean moveAgent(Agent a, int newX, int newY) {
 		if(this.espace[newX][newY] == null){
+			this.espace[a.getPosX()][a.getPosY()] = null;
 			this.espace[newX][newY] = a;
 			return true;
 		}

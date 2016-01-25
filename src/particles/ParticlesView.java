@@ -1,4 +1,4 @@
-package particules;
+package particles;
 
 import java.awt.Graphics;
 import java.util.Observable;
@@ -6,9 +6,9 @@ import java.util.Observable;
 import core.Agent;
 import core.View;
 
-public class ParticulesView extends View{
+public class ParticlesView extends View{
 
-	public ParticulesView(int gridSize, int cellSize, String name) {
+	public ParticlesView(int gridSize, int cellSize, String name) {
 		super(gridSize, cellSize, name);
 	}
 	
