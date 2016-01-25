@@ -31,11 +31,12 @@ public class Environnement {
 		int newY = y;
 		for(int i = -1; i < localEnv.length-1; i++){
 			for(int j = -1; j < localEnv.length-1; j++){
+				//System.out.println("x+i : " + (x+i) + " y+j : " + (y+j));
 				if(this.toric){
 					newX = (x+i+this.espace.length)%this.espace.length;
 					newY = (j+y+this.espace.length)%this.espace.length;
 					localEnv[i+1][j+1] = this.espace[newX][newY]; 
-				} else if(!this.toric && (x+i > this.espace.length || x+j > this.espace.length || x+i < 0 || y+j < 0)) {
+				} else if(!this.toric && (x+i >= this.espace.length || y+j >= this.espace.length || x+i < 0 || y+j < 0)) {
 						localEnv[i+1][j+1] = null;
 				} else {
 					localEnv[i+1][j+1] = this.espace[newX+i][newY+j];
