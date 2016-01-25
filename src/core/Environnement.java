@@ -64,39 +64,9 @@ public class Environnement {
 	}
 
 	
-	public boolean update(Agent agent, int x, int y) throws Exception {
-		int newX = x;
-		int newY = y;
-		int oldX = agent.getPosX();
-		int oldY = agent.getPosY();
-		if(this.toric){
-			newX = (newX+espace.length)%espace.length;
-			newY = (newY+espace.length)%espace.length;
-			oldX = (oldX+espace.length)%espace.length;
-			oldY = (oldY+espace.length)%espace.length;
-		}
-		if(isAvailable(newX, newY)){
-			this.espace[newX][newY] = agent;
-			this.espace[oldX][oldY] = null;
-			return true;
-		} else {
-			if(x < this.espace.length-1 && x >= 0 && y < this.espace.length-1 && y >=0){
-				agent.setDirX(-1*agent.getDirX());
-				agent.setDirY(-1*agent.getDirY());
-				if(this.espace[x][y] != null){
-					this.espace[x][y].setDirX(this.espace[x][y].getDirX() == 0 ? -1*agent.getDirX() : -1*this.espace[x][y].getDirX());
-					this.espace[x][y].setDirY(this.espace[x][y].getDirY() == 0 ? -1*agent.getDirY() : -1*this.espace[x][y].getDirY());
-				}
-			} else {
-				if(x >= this.espace.length-1 || x <= 1)
-					agent.setDirX(-1*agent.getDirX());
-				if(y >= this.espace.length-1 || y <= 1)
-					agent.setDirY(-1*agent.getDirY());
-			}
-		}
-		return false;
-		
-	}
+//	public boolean update(Agent agent, int x, int y) throws Exception {
+//				
+//	}
 		
 	public void print(){
 		for(int i = 0; i < espace.length; i++ ){
@@ -143,6 +113,26 @@ public class Environnement {
 		return this.espace[x][y];
 	}
 	
+	public int convertToToric(int val){
+		return (val+this.espace.length)%this.espace.length;
+	}
+
+	public boolean moveAgent(Agent a, int newX, int newY) {
+		if(this.espace[newX][newY] == null){
+			this.espace[newX][newY] = a;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean changeAgentDir(int x, int y, int dirX, int dirY){
+		if(this.espace[x][y] != null){
+			
+		}
+		
+		return false;
+	}
 	 
 	
 }

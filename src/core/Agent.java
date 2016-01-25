@@ -52,9 +52,10 @@ public abstract class Agent {
 	public abstract void decide() throws Exception;
 	
 	public boolean isAvailable(int x, int y){
-		Agent[][] localEnv = this.env.getLocalEnv(this.getPosX(), this.getPosY());
-		
-		return false;
+		Agent[][] localEnv = this.env.getLocalEnv(this.posX, this.posY);
+		int localX = (this.posX-x+localEnv.length)%localEnv.length;
+		int localY = (this.posY-y+localEnv.length)%localEnv.length;
+		return localEnv[localX][localY] == null;		
 	}
 	
 	@Override

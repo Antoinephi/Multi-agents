@@ -20,9 +20,9 @@ public class Main {
 		for(int i = 0; i < NB_AGENTS; i++){
 			new Particule(sma.getEnv());
 		}
-		new Particule(4, 5, 1,1,sma.getEnv());
-//		sma.run(NB_TURNS);
-		sma.getEnv().getLocalEnv(5, 5);
+//		new Particule(4, 5, 1,1,sma.getEnv());
+		sma.run(NB_TURNS);
+//		sma.getEnv().getLocalEnv(5, 5);
 		
 		
 	}
