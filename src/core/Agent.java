@@ -20,7 +20,6 @@ public abstract class Agent {
 		this.dirX = dirX;
 		this.dirY = dirY;
 		this.env = env;
-		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
 		try {
 			this.env.addAgent(this);
 		} catch (Exception e) {
@@ -46,7 +45,6 @@ public abstract class Agent {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
 	}
 	
 	public abstract void decide() throws Exception;

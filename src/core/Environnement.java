@@ -1,4 +1,5 @@
 package core;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +55,29 @@ public class Environnement {
 //			}
 //			System.out.println();
 //		}
+		return localEnv;
+	}
+	
+	public List<Agent> getNeighboursList(int x, int y){
+		List<Agent> localEnv = new ArrayList<Agent>();
+		int newX = x;
+		int newY = y;
+
+		
+		for(int i = -1; i < 3; i++){
+			for(int j = -1; j < 3; j++){
+				if(this.toric){
+					newX = (x+i+this.espace.length)%this.espace.length;
+					newY = (j+y+this.espace.length)%this.espace.length;
+					localEnv.add(this.espace[i+x][j+y]);
+				} else if(!this.toric && (x+i >= this.espace.length || y+j >= this.espace.length || x+i < 0 || y+j < 0)) {
+					localEnv.add(null);
+				} else {
+					localEnv.add(this.espace[newX+i][newY+j]);
+				
+				}
+			}
+		}
 		return localEnv;
 	}
 

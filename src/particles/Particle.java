@@ -1,5 +1,7 @@
 package particles;
 
+import java.awt.Color;
+
 import core.Agent;
 import core.Environnement;
 
@@ -7,10 +9,14 @@ public class Particle extends Agent{
 
 	public Particle(int posX, int posY, int dirX, int dirY, Environnement env) {
 		super(posX, posY, dirX, dirY, env);
+		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
+
 	}
 	
 	public Particle(Environnement env){
 		super(env);
+		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
+
 	}
 
 	public void decide() throws Exception{
