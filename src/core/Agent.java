@@ -39,8 +39,8 @@ public abstract class Agent {
 		}
 		this.posX = posX;
 		this.posY = posY;
-		this.dirX = r.nextInt(3);
-		this.dirY = r.nextInt(3);
+		this.dirX = r.nextInt(3)-1;
+		this.dirY = r.nextInt(3)-1;
 		try {
 			this.env.addAgent(this);
 		} catch (Exception e) {
@@ -52,9 +52,13 @@ public abstract class Agent {
 	public abstract void decide() throws Exception;
 	
 	public boolean isAvailable(int x, int y){
+		if(x < 0 || y < 0)
+			return false;
 		Agent[][] localEnv = this.env.getLocalEnv(this.posX, this.posY);
-		int localX = (this.posX-x+localEnv.length)%localEnv.length;
-		int localY = (this.posY-y+localEnv.length)%localEnv.length;
+		int localX = (this.posX-x+localEnv.length)%(localEnv.length);
+		int localY = (this.posY-y+localEnv.length)%(localEnv.length);
+		System.out.println("posX : " + posX  + " x : " + x + " localX : " + localX );
+		System.out.println("posY : " + posY + " y : " + y + " localY : " + localY);
 		return localEnv[localX][localY] == null;		
 	}
 	

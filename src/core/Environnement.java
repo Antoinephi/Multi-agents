@@ -1,5 +1,4 @@
 package core;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -126,9 +125,10 @@ public class Environnement {
 		return false;
 	}
 	
-	public boolean changeAgentDir(int x, int y, int dirX, int dirY){
+	public boolean changeAgentDir(Agent a, int x, int y, int dirX, int dirY){
 		if(this.espace[x][y] != null){
-			
+			this.espace[x][y].setDirX(this.espace[x][y].getDirX() == 0 ? -1*a.getDirX() : -1*this.espace[x][y].getDirX());
+			this.espace[x][y].setDirY(this.espace[x][y].getDirY() == 0 ? -1*a.getDirY() : -1*this.espace[x][y].getDirY());
 		}
 		
 		return false;

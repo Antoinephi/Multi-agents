@@ -15,29 +15,24 @@ public class Particule extends Agent{
 
 	public void decide() throws Exception{
 
-//		if(env.isToric()){
-//			if(env.update(this, ((posX+dirX)+env.getEspace().length)%env.getEspace().length, ((posY+dirY)+env.getEspace().length)%env.getEspace().length)){
-//				this.posX = ((posX+dirX)+env.getEspace().length)%env.getEspace().length;	
-//				this.posY = ((posY+dirY)+env.getEspace().length)%env.getEspace().length;
-//			}
-//		} else {
-//			if(env.update(this, posX+dirX, posY+dirY)){
-//				this.posX +=dirX;
-//				this.posY +=dirY;
-//			}
-//		}
-		
 		int newX = posX+dirX;
 		int newY = posY+dirY;
 		int oldX = this.posX;
 		int oldY = this.posY;
+		
+		if(dirX == 0 && dirY == 0)
+			return;
+		
 		if(env.isToric()){
 			newX = env.convertToToric(newX);
 			newY = env.convertToToric(newY);
 			oldX = env.convertToToric(oldX);
 			oldY = env.convertToToric(oldY);
+		} else {
+			
 		}
 		if(isAvailable(newX, newY)){
+//			System.out.println("newX : " + newX + "newY : " + newY);
 			this.env.moveAgent(this, newX, newY);
 			this.posX = newX;
 			this.posY = newY;

@@ -34,7 +34,7 @@ public class SMA extends Observable {
 	
 
 	public void turn() throws Exception{
-//		System.out.println("Nombre d'agents : " + agents.size());
+		System.out.println("Nombre d'agents : " + agents.size());
 		
 		for(Agent a : agents){
 			a.decide();
