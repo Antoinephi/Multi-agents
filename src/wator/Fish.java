@@ -11,20 +11,30 @@ public abstract class Fish extends Agent {
 
 	protected List<Shark> closeSharks = new ArrayList<Shark>();
 	protected List<Tuna> closeTunas = new ArrayList<Tuna>();
+	protected static int INIT_BREED;
+	protected int nbBreed;
+	protected int age;
 	
-	public Fish(Environnement env) {
+	public Fish(Environnement env, int nbBreed) {
 		super(env);
+		this.nbBreed = nbBreed;
+		INIT_BREED = nbBreed;
 	}
 	
-	public Fish(int posX, int posY, int dirX, int dirY, Environnement env) {
+	public Fish(int posX, int posY, int dirX, int dirY, Environnement env, int nbBreed) {
 		super(posX, posY, dirX, dirY, env);
 		this.c = new Color(80, 80, 240);
+		this.nbBreed = nbBreed;
+		INIT_BREED = nbBreed;
 	}
 	
 	public abstract String getTypeOf();
 
-	public void reproduce(){
-		
+	protected void reproduce(int x, int y, Fish f){
+		if(this.env.getCell(x, y) != null)
+			throw new IllegalAccessError("Cannot create Fish in non-empty cell");
+		this.env.getEspace()[x][y] = f;
+		this.nbBreed = INIT_BREED;
 	}
 	
 	public void getCurrentNeighbourhood(){

@@ -28,7 +28,7 @@ public abstract class View implements Observer 	{
 		this.panel = new JPanel();
 		this.panel.setPreferredSize(new Dimension(gridSize,gridSize));
 		this.panel.setBackground(Color.white);
-		
+		this.frame.setLocationRelativeTo(null);
 		this.frame.setContentPane(this.panel);
 		this.frame.pack();
 	}

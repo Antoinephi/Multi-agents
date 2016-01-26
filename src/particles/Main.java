@@ -10,7 +10,7 @@ public class Main {
 	private static final int NB_AGENTS = 500;
 	private static final int SIM_SPEED = 30;
 	private static final int NB_TURNS = 10000;
-	private static final boolean TORIC = false;
+	private static final boolean TORIC = true;
 	
 
 	public static void main(String[] args) throws Exception {
