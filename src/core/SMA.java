@@ -20,6 +20,7 @@ public class SMA extends Observable {
 		env = new Environnement(envSize,envSize, nbAgents, toric);
 		this.speed = speed;
 //		View v = new ParticulesView(viewSize,cellSize, "Billes");
+		this.addNewAgents();
 		agents = env.getAgents();
 		this.addObserver(v);
 	}
@@ -34,15 +35,27 @@ public class SMA extends Observable {
 	
 
 	public void turn() throws Exception{
-//		System.out.println("Nombre d'agents : " + agents.size());
+		System.out.println("Nombre d'agents : " + agents.size());
 		
 		for(Agent a : agents){ // TODO : change to iterator
 			a.decide();
 		}
+		this.removeDeadAgents();
+		this.addNewAgents();
 
 		this.setChanged();
 		this.notifyObservers();		
 		Collections.shuffle(agents);
+	}
+	
+	private void removeDeadAgents(){
+		this.env.getAgents().removeAll(this.env.getDeadAgents());
+		this.env.getDeadAgents().clear();
+	}
+	
+	private void addNewAgents(){
+		this.env.getAgents().addAll(this.env.getNewAgents());
+		this.env.getNewAgents().clear();
 	}
 	
 	public Environnement getEnv(){

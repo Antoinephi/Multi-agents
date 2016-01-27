@@ -6,9 +6,14 @@ import core.Agent;
 import core.Environnement;
 
 public class Particle extends Agent{
-
+	
+	protected int dirX;
+	protected int dirY;
+	
 	public Particle(int posX, int posY, int dirX, int dirY, Environnement env) {
-		super(posX, posY, dirX, dirY, env);
+		super(posX, posY, env);
+		this.dirX = dirX;
+		this.dirY = dirY;
 		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
 
 	}

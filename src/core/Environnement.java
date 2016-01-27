@@ -11,14 +11,17 @@ public class Environnement {
 	
 	private Agent[][] espace;
 	private List<Agent> agents;
+	private List<Agent> deadAgents;
+	private List<Agent> newAgents;
 	private static int MAX_AGENT;
 	private boolean toric = false;
 	Random r = new Random();
 	
 	public Environnement(int sizeX, int sizeY,int nbAgents, boolean toric) throws Exception{
 		this.espace = new Agent[sizeX][sizeY];
-		agents = new LinkedList<Agent>();
-
+		this.agents = new LinkedList<Agent>();
+		this.deadAgents = new ArrayList<Agent>();
+		this.newAgents = new ArrayList<Agent>();
 		if(nbAgents > sizeX * sizeY) throw new Exception("Reduce agents number or increase environnement's size !");
 		MAX_AGENT = nbAgents;
 
@@ -64,8 +67,8 @@ public class Environnement {
 		int newY = y;
 
 		
-		for(int i = -1; i < 3; i++){
-			for(int j = -1; j < 3; j++){
+		for(int i = -1; i < 1; i++){
+			for(int j = -1; j < 1; j++){
 				if(this.toric){
 					newX = (x+i+this.espace.length)%this.espace.length;
 					newY = (j+y+this.espace.length)%this.espace.length;
@@ -82,6 +85,10 @@ public class Environnement {
 	}
 
 	public boolean isAvailable(int x, int y) {
+		if(this.toric){
+			x = (x+this.espace.length)%this.espace.length;
+			y = (y+this.espace.length)%this.espace.length;
+		}
 		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0){
 			return this.espace[x][y] == null;
 		}
@@ -109,7 +116,7 @@ public class Environnement {
 		if(this.espace[a.getPosX()][a.getPosY()] != null)
 			throw new Exception("Error : cannot place new agent on top of another one !");
 		this.espace[a.getPosX()][a.getPosY()] = a;
-		this.agents.add(a);
+		this.newAgents.add(a);
 	}
 	
 	public List<Agent> getAgents(){
@@ -130,7 +137,14 @@ public class Environnement {
 	}
 	
 	public Agent getCell(int x, int y){
-		return this.espace[x][y];
+//		System.out.println("x  : "  + x + " y : " + y);
+
+		if(this.toric)
+			return this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length];
+		else if(!this.toric && x < this.espace.length && y < this.espace.length && x >= 0 && y >= 0)
+			return this.espace[x][y];
+		else
+			return null;
 	}
 	
 	public int convertToToric(int val){
@@ -155,6 +169,31 @@ public class Environnement {
 		
 		return false;
 	}
-	 
+	
+	public void addDeadAgent(Agent a){
+		this.deadAgents.add(a);
+	}
+	
+	public List<Agent> getDeadAgents(){
+		return this.deadAgents;
+	}
+	
+	public void addNewAgent(Agent a){
+		this.newAgents.add(a);
+	}
+	
+	public List<Agent> getNewAgents(){
+		return this.newAgents;
+	}
+	
+	public int convertInd(int i){
+		if(this.toric)
+			return (i+this.espace.length)%this.espace.length;
+		else if(i < this.espace.length && i >= 0)
+			return i;
+		else
+			throw new ArrayIndexOutOfBoundsException();
+			
+	}
 	
 }

@@ -14,39 +14,46 @@ public class Shark extends Fish {
 	private boolean isAlive = true;
 	
 	
-	public Shark(int posX, int posY, int dirX, int dirY, Environnement env, int nbBreed, int hunger) {
-		super(posX, posY, dirX, dirY, env, nbBreed);
+	public Shark(int posX, int posY, Environnement env, int nbBreed, int hunger) {
+		super(posX, posY, env, nbBreed);
 		this.c = new Color(80, 80, 240);
 		INIT_HUNGER = hunger;
+		this.hunger = hunger;
 	}
 	
 	public Shark(Environnement env, int nbBreed, int hunger) {
 		super(env, nbBreed);
 		this.c = new Color(80, 80, 240);
 		INIT_HUNGER = hunger;
+		this.hunger = hunger;
 	}
 
 	public void decide() throws Exception {
-		if(hunger == 0) {
+		this.updateParameters();
+//		System.out.println(hunger);
+		if(hunger <= 0) {
 			isAlive = false;
+			this.env.addDeadAgent(this);
+			this.env.getEspace()[this.posX][this.posY] = null;
 			return;
 		} 
-		
-		List<Agent> nearbyFish  = this.env.getNeighboursList(this.posX,this.posY);
+		this.getCurrentNeighbourhood();
 		//TODO : find closest cell (fish, shark, empty)
-		
-		if(nbBreed == 0 && nearbyFish.size() < 9){
-//			this.reproduce(x, y, new Shark(this.env, INIT_HUNGER, INIT_BREED));
+//		System.out.println(nearbyFish.size());
+		System.out.println(nbBreed);
+		if(nbBreed <= 0 && closeSharks.size() + closeTunas.size() < 9){
+			this.reproduce(this.posX+1, this.posY, new Shark(this.posX+1, this.posY, this.env, INIT_HUNGER, INIT_BREED));
 			
+		} else if(closeTunas.size() > 0){
+			this.eatFish(closeTunas.get(0).getPosX(), closeTunas.get(0).getPosY());
 		}
 		
-		for(Agent f : nearbyFish){
-			if(f instanceof Tuna){
-				this.eatFish(f.getPosX(), f.getPosY());
-			} else if(f != null) {
-				
-			}
-		}
+	}
+	
+	protected void updateParameters(){
+		super.updateParameters();
+		this.hunger--;
+//		System.out.println(this + " hunger = " + hunger);
 	}
 
 	private void eatFish(int x, int y){

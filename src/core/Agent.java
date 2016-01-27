@@ -14,11 +14,9 @@ public abstract class Agent {
 	protected Color c;
 	protected Random r = new Random();
 	
-	public Agent(int posX, int posY, int dirX, int dirY, Environnement env){
+	public Agent(int posX, int posY, Environnement env){
 		this.posX = posX;
 		this.posY = posY;
-		this.dirX = dirX;
-		this.dirY = dirY;
 		this.env = env;
 		try {
 			this.env.addAgent(this);
