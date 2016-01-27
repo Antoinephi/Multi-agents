@@ -2,6 +2,7 @@ package wator;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import core.Agent;
@@ -9,12 +10,13 @@ import core.Environnement;
 
 public abstract class Fish extends Agent {
 
-	protected List<Shark> closeSharks = new ArrayList<Shark>();
-	protected List<Tuna> closeTunas = new ArrayList<Tuna>();
-	protected List<int[]> nearbyEmptyCells = new ArrayList<int[]>();
+	protected List<Shark> closeSharks;
+	protected List<Tuna> closeTunas;
+	protected List<int[]> nearbyEmptyCells;
 	protected static int INIT_BREED;
 	protected int nbBreed;
 	protected int age;
+	protected boolean isAlive = true;
 	
 	public Fish(Environnement env, int nbBreed) {
 		super(env);
@@ -31,12 +33,12 @@ public abstract class Fish extends Agent {
 	
 	public abstract String getTypeOf();
 
-	protected void reproduce(int x, int y, Fish f){
-		System.out.println(">>>>>>>reproduce");
-		System.out.println("x  : "  + x + " y : " + y);
+	protected void reproduce(Fish f){
+//		System.out.println(">>>>>>>reproduce");
+//		System.out.println("x  : "  + x + " y : " + y);
 //			throw new IllegalAccessError("Cannot create Fish in non-empty cell");
-		this.env.getEspace()[x][y] = f;
-		this.env.addNewAgent(f);
+//		this.env.getEspace()[f.getPosX()][f.getPosY()] = f;
+//		this.env.addNewAgent(f);
 		this.nbBreed = INIT_BREED;
 	}
 	
@@ -45,26 +47,53 @@ public abstract class Fish extends Agent {
 		this.nbBreed--;
 	}
 	
+	protected void move(int x, int y){
+		if(this.env.moveAgent(this, x, y)){
+			this.posX = this.env.convertInd(x);
+			this.posY = this.env.convertInd(y);
+		}
+	}
+	
 	public void getCurrentNeighbourhood(){
 		nearbyEmptyCells = new ArrayList<int[]>();
 		closeSharks = new ArrayList<Shark>();
 		closeTunas = new ArrayList<Tuna>();
 		Agent a;
-		for(int i = this.posX-1; i < this.posX+1; i++){
-			for(int j = this.posY-1; j < this.posY; j++){
+		for(int i = this.posX-1; i <= this.posX+1; i++){
+			for(int j = this.posY-1; j <= this.posY+1; j++){
+//				System.out.println("i : " + i + " j : " + j);
 				a = this.env.getCell(i, j);
-				if(a == null && i >= 0 && i < this.env.getEnvSize() && j >=0 && j >= this.env.getEnvSize()){
-					int[] tab = {i,j};
+				if(a == null && this.env.convertInd(i) != -1 && this.env.convertInd(j) != -1){
+					int[] tab = {this.env.convertInd(i),this.env.convertInd(j)};
 					nearbyEmptyCells.add(tab);
+//					System.out.println("NONE");
 				} else if(a instanceof Tuna){
 					closeTunas.add((Tuna)a);
+//					System.out.println("TUNA");
 				} else if(a instanceof Shark){
 					closeSharks.add((Shark)a);
+//					System.out.println("SHARK");
+				} else {
+//					System.out.println("OTHER ?");
 				}
 			}
 		}
+		Collections.shuffle(nearbyEmptyCells);
+		Collections.shuffle(closeSharks);
+		Collections.shuffle(closeTunas);
+
+	}
+	
+	public void kill(){
+		this.isAlive = false;
+		this.env.addDeadAgent(this);
+		if(this.env.getCell(posX, posY) == this)
+			this.env.setAgent(posX, posY, this);
 	}
 
+	public boolean isAlive(){
+		return this.isAlive;
+	}
 
 
 }

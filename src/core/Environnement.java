@@ -13,9 +13,9 @@ public class Environnement {
 	private List<Agent> agents;
 	private List<Agent> deadAgents;
 	private List<Agent> newAgents;
+	
 	private static int MAX_AGENT;
 	private boolean toric = false;
-	Random r = new Random();
 	
 	public Environnement(int sizeX, int sizeY,int nbAgents, boolean toric) throws Exception{
 		this.espace = new Agent[sizeX][sizeY];
@@ -28,39 +28,7 @@ public class Environnement {
 		this.toric = toric;
 		
 	}
-		
-	public Agent[][] getLocalEnv(int x, int y){
-		Agent[][] localEnv = new Agent[3][3];
-		int newX = x;
-		int newY = y;
-		for(int i = -1; i < localEnv.length-1; i++){
-			for(int j = -1; j < localEnv.length-1; j++){
-				//System.out.println("x+i : " + (x+i) + " y+j : " + (y+j));
-				if(this.toric){
-					newX = (x+i+this.espace.length)%this.espace.length;
-					newY = (j+y+this.espace.length)%this.espace.length;
-					localEnv[i+1][j+1] = this.espace[newX][newY]; 
-				} else if(!this.toric && (x+i >= this.espace.length || y+j >= this.espace.length || x+i < 0 || y+j < 0)) {
-						localEnv[i+1][j+1] = null;
-				} else {
-					localEnv[i+1][j+1] = this.espace[newX+i][newY+j];
-				
-				}
-
-			}
-		}
-//		for(int i = 0; i < localEnv.length; i++){
-//			for(int j = 0; j < localEnv.length; j++){
-//				if(localEnv[i][j] == null)
-//					System.out.print(" 0 ");
-//				else
-//					System.out.print(" 1 ");
-//			}
-//			System.out.println();
-//		}
-		return localEnv;
-	}
-	
+			
 	public List<Agent> getNeighboursList(int x, int y){
 		List<Agent> localEnv = new ArrayList<Agent>();
 		int newX = x;
@@ -112,8 +80,18 @@ public class Environnement {
 		return espace;
 	}
 	
+	public void setAgent(int x, int y, Agent a){
+		if(this.toric)
+			this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length] = a;
+		else if(!this.toric && x < this.espace.length && y < this.espace.length && x >= 0 && y >= 0)
+			this.espace[x][y] = a;
+		else
+			System.out.println("ERROR !!!!");
+	}
+	
 	public void addAgent(Agent a) throws Exception{
 		if(this.espace[a.getPosX()][a.getPosY()] != null)
+//			System.out.println(a.getPosX() + " >>>> " + a.getPosY());
 			throw new Exception("Error : cannot place new agent on top of another one !");
 		this.espace[a.getPosX()][a.getPosY()] = a;
 		this.newAgents.add(a);
@@ -123,11 +101,6 @@ public class Environnement {
 		return this.agents;
 	}
 	
-	public void setAgent(int x, int y, int dirX, int dirY){
-		this.espace[x][y] = new Particle(x, y, dirX, dirY, this);
-		this.agents.add(espace[x][y]);
-	}
-
 	public boolean isToric() {
 		return this.toric;
 	}
@@ -138,25 +111,36 @@ public class Environnement {
 	
 	public Agent getCell(int x, int y){
 //		System.out.println("x  : "  + x + " y : " + y);
-
-		if(this.toric)
-			return this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length];
-		else if(!this.toric && x < this.espace.length && y < this.espace.length && x >= 0 && y >= 0)
-			return this.espace[x][y];
+//		if(this.toric)
+//			return this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length];
+//		else if(!this.toric && x < this.espace.length && y < this.espace.length && x >= 0 && y >= 0)
+//			return this.espace[x][y];
+//		else
+//			return null;
+		if(convertInd(x)!= -1 && convertInd(y) != -1)
+			return this.espace[convertInd(x)][convertInd(y)];
 		else
 			return null;
+		
 	}
 	
 	public int convertToToric(int val){
 		return (val+this.espace.length)%this.espace.length;
 	}
 
-	public boolean moveAgent(Agent a, int newX, int newY) {
-		if(this.espace[newX][newY] == null){
+	public boolean moveAgent(Agent a, int x, int y) {
+//		if(this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length] == null){
+//			this.espace[a.getPosX()][a.getPosY()] = null;
+//			this.espace[(x+this.espace.length)%this.espace.length][(y+this.espace.length)%this.espace.length] = a;
+//			return true;
+//		}
+		
+		if(convertInd(x) != -1 && convertInd(y) != -1){
 			this.espace[a.getPosX()][a.getPosY()] = null;
-			this.espace[newX][newY] = a;
+			this.espace[convertInd(x)][convertInd(y)] = a;
 			return true;
 		}
+			
 		
 		return false;
 	}
@@ -192,7 +176,8 @@ public class Environnement {
 		else if(i < this.espace.length && i >= 0)
 			return i;
 		else
-			throw new ArrayIndexOutOfBoundsException();
+//			throw new ArrayIndexOutOfBoundsException();
+			return -1;
 			
 	}
 	

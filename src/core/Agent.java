@@ -1,6 +1,5 @@
 package core;
 import java.awt.Color;
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -47,16 +46,6 @@ public abstract class Agent {
 	
 	public abstract void decide() throws Exception;
 	
-	public boolean isAvailable(int x, int y){
-		if(x < 0 || y < 0 || (!this.env.isToric() && (x >= this.env.getEnvSize() || y >= this.env.getEnvSize())))
-			return false;
-		Agent[][] localEnv = this.env.getLocalEnv(this.posX, this.posY);
-		int localX = (this.posX-x+localEnv.length-1)%(localEnv.length-1);
-		int localY = (this.posY-y+localEnv.length-1)%(localEnv.length-1);
-		System.out.println("posX : " + posX  + " x : " + x + " localX : " + localX );
-		System.out.println("posY : " + posY + " y : " + y + " localY : " + localY);
-		return localEnv[localX][localY] == null;		
-	}
 	
 	@Override
 	public String toString() {

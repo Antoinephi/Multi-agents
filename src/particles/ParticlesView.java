@@ -1,7 +1,6 @@
 package particles;
 
 import java.awt.Graphics;
-import java.util.Observable;
 
 import core.Agent;
 import core.View;
