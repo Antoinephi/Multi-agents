@@ -13,14 +13,14 @@ public class Shark extends Fish {
 	
 	public Shark(int posX, int posY, Environnement env, int nbBreed, int hunger) {
 		super(posX, posY, env, nbBreed);
-		this.c = new Color(80, 80, 240);
+		this.c = new Color(24, 27, 255);
 		INIT_HUNGER = hunger;
 		this.hunger = hunger;
 	}
 	
 	public Shark(Environnement env, int nbBreed, int hunger) {
 		super(env, nbBreed);
-		this.c = new Color(80, 80, 240);
+		this.c = new Color(24, 27, 255);
 		INIT_HUNGER = hunger;
 		this.hunger = hunger;
 	}

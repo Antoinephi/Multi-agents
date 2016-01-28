@@ -18,54 +18,72 @@ public class SMA extends Observable {
 	private int speed;
 	private BufferedWriter writer;
 	private long init_time;
+	private boolean infinite;
+	private boolean logging;
 	
-	public SMA(int nbAgents, int viewSize, int cellSize, int speed, boolean toric, View v, int nbTurns) throws Exception{
+	private int nbSharks;
+	private int nbTunas;
+	
+	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
+			boolean toric, View v, int nbTurns, boolean infinite, boolean logging) throws Exception{
 		int envSize = viewSize/cellSize;
-
+		this.infinite = infinite;
+		this.logging = logging;
+		
 		env = new Environnement(envSize,envSize, nbAgents, toric);
 		this.speed = speed;
 //		View v = new ParticulesView(viewSize,cellSize, "Billes");
-//		this.addNewAgents();
+		this.addNewAgents();
 		agents = env.getAgents();
 		this.addObserver(v);
 		init_time = System.currentTimeMillis();
 		File log = new File("data.log");
-		writer = new BufferedWriter(new FileWriter(log));
+		if(logging)
+			writer = new BufferedWriter(new FileWriter(log));
 		
 	}
 	
 	
 	public void run(int nbTurns) throws Exception{
-		for(int i = 0; i < nbTurns; i++){
-			long startTime = System.currentTimeMillis();
+		long time = System.currentTimeMillis();
+		this.addNewAgents();
 
-			turn();
+		if(infinite){
+			do{
+				turn();
+				Thread.sleep(this.speed);
+			}while(this.nbSharks > 0 && this.nbTunas > 0);
 
-			long endTime = System.currentTimeMillis();
-
-//			System.out.println("That took " + (endTime - startTime) + " milliseconds");
-			Thread.sleep(this.speed);
+		} else {
+			for(int i = 0; i < nbTurns; i++){
+	
+				turn();
+	
+				Thread.sleep(this.speed);
+			}
 		}
-		writer.close();
+		if(logging)
+			writer.close();
+		System.out.println("Lasted for : " + (System.currentTimeMillis() - init_time) + "ms");
 	}
 	
 
 	public void turn() throws Exception{
 //		System.out.println("Nombre d'agents : " + agents.size());
 		long time = System.currentTimeMillis();
-		int nbTunas = 0;
-		int nbSharks = 0;
+		this.nbTunas = 0;
+		this.nbSharks = 0;
 		for(Agent a : agents){ // TODO : change to iterator
 //			System.out.println((Fish)a.get);
 			if(a instanceof Tuna){
-				nbTunas++;
+				this.nbTunas++;
 				if(!((Tuna)a).isAlive())
 					this.env.addDeadAgent(a);
 //				System.out.println(a);
 //				System.out.println(a);
 //				a.decide();
 			} else if(a instanceof Shark) {
-				nbSharks++;
+				this.nbSharks++;
 				if(!((Shark)a).isAlive())
 					this.env.addDeadAgent(a);
 
@@ -73,13 +91,15 @@ public class SMA extends Observable {
 			}
 			a.decide();
 		}
-		writer.write((System.currentTimeMillis() - init_time)+";");
-		writer.write(agents.size() +";");
-		writer.write(nbTunas + ";");
-		writer.write(nbSharks + ";\n");
+		if(logging){
+			writer.write((System.currentTimeMillis() - init_time)+";");
+			writer.write(agents.size() +";");
+			writer.write(nbTunas + ";");
+			writer.write(nbSharks + ";\n");
+		}
+//		System.out.println("1-Nombre d'agents : " + agents.size());
 //		System.out.println("\t- Tunas : " + nbTunas);
 //		System.out.println("\t- Sharks : " + nbSharks);
-//		System.out.println("1-Nombre d'agents : " + agents.size());
 
 		this.removeDeadAgents();
 //		System.out.println("2-Nombre d'agents : " + agents.size());

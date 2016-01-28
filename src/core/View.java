@@ -39,7 +39,7 @@ public abstract class View implements Observer 	{
 		for(Agent a : sma.getAgents()) {
 			draw(a, g);
 		}
-		 this.frame.setVisible(true);
+//		 this.frame.setVisible(true);
 		
 	}
 	

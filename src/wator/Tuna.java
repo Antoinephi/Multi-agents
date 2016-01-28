@@ -8,12 +8,12 @@ public class Tuna extends Fish {
 
 	public Tuna(int posX, int posY, Environnement env, int nbBreed) {
 		super(posX, posY, env, nbBreed);
-		this.c = new Color(150, 0, 0);
+		this.c = new Color(208, 0, 0);
 	}
 	
 	public Tuna(Environnement env, int nbBreed) {
 		super(env, nbBreed);
-		this.c = new Color(150, 0, 0);
+		this.c = new Color(208, 0, 0);
 	}
 	
 	@Override
