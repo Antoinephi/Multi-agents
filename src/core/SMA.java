@@ -1,4 +1,6 @@
 package core;
+import hunter.Target;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,6 +25,7 @@ public class SMA extends Observable {
 	
 	private int nbSharks;
 	private int nbTunas;
+	private int nbTargets;
 	
 	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
 			boolean toric, View v, int nbTurns, boolean infinite, boolean logging) throws Exception{
@@ -52,7 +55,7 @@ public class SMA extends Observable {
 			do{
 				turn();
 				Thread.sleep(this.speed);
-			}while(this.nbSharks > 0 && this.nbTunas > 0);
+			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0);
 
 		} else {
 			for(int i = 0; i < nbTurns; i++){
@@ -73,6 +76,9 @@ public class SMA extends Observable {
 		long time = System.currentTimeMillis();
 		this.nbTunas = 0;
 		this.nbSharks = 0;
+		this.nbTargets = 0;
+		Target.DIR_X = 0;
+		Target.DIR_Y = 0;
 		for(Agent a : agents){ // TODO : change to iterator
 //			System.out.println((Fish)a.get);
 			if(a instanceof Tuna){
@@ -88,6 +94,11 @@ public class SMA extends Observable {
 					this.env.addDeadAgent(a);
 
 //				a.decide();
+			} else if(a instanceof Target){
+				if(!((Target)a).isAlive())
+					this.env.addDeadAgent(a);
+				else
+					this.nbTargets++;
 			}
 			a.decide();
 		}

@@ -7,7 +7,9 @@ import core.Environnement;
 
 public class Target extends Agent{
 	
-	private static int KEY_VALUE;
+	public static int DIR_X;
+	public static int DIR_Y;
+
 	private boolean isAlive = true;
 
 	public Target(Environnement env) {
@@ -22,6 +24,7 @@ public class Target extends Agent{
 
 	@Override
 	public void decide() throws Exception {
+
 		if(!isAlive)
 			return;
 //		if(this.env.isAvailable(posX+1, posY)){
@@ -29,19 +32,28 @@ public class Target extends Agent{
 //			this.posX = this.env.convertInd(posX+1);
 //			this.posY = this.env.convertInd(posY);
 //		}
-		/*int dirX = r.nextInt(3)-1;
-		int dirY = r.nextInt(3)-1;
-		while(!this.env.isAvailable(posX+dirX, posY+dirY)){
-			dirX = r.nextInt(3)-1;
-			dirY = r.nextInt(3)-1;
+//		int dirX = r.nextInt(3)-1;
+//		int dirY = r.nextInt(3)-1;
+//		while(!this.env.isAvailable(posX+dirX, posY+dirY)){
+//			dirX = r.nextInt(3)-1;
+//			dirY = r.nextInt(3)-1;
+//		}
+		if(this.env.isAvailable(posX+DIR_X, posY+DIR_Y)){
+			this.env.moveAgent(this, posX+DIR_X, posY+DIR_Y);
+			this.posX = this.env.convertInd(posX+DIR_X);
+			this.posY = this.env.convertInd(posY+DIR_Y);
 		}
-		this.env.moveAgent(this, posX+dirX, posY+dirY);
-		this.posX = this.env.convertInd(posX+dirX);
-		this.posY = this.env.convertInd(posY+dirY);*/
 		
 	}
 
 	public void kill(){
+		System.out.println("killed");
 		this.isAlive = false;
+		this.env.getEspace()[posX][posY] = null;
+		this.env.addDeadAgent(this);
+	}
+	
+	public boolean isAlive(){
+		return this.isAlive;
 	}
 }

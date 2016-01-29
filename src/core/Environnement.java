@@ -125,9 +125,10 @@ public class Environnement {
 //			return this.espace[x][y];
 //		else
 //			return null;
-		if(convertInd(x)!= -1 && convertInd(y) != -1)
+		if(convertInd(x)!= -1 && convertInd(y) != -1){
+//			System.out.println(this.espace[convertInd(x)][convertInd(y)]);
 			return this.espace[convertInd(x)][convertInd(y)];
-		else
+		} else
 			return null;
 		
 	}
@@ -191,7 +192,7 @@ public class Environnement {
 	public Target getChasedAgent() {
 		for(Agent a : agents)
 			if(a instanceof Target){
-				System.out.println(a.getPosX() + ":" +a.getPosY());
+//				System.out.println("Target : " + a.getPosX() + ":" +a.getPosY());
 				return (Target) a;
 			}
 		return null;
