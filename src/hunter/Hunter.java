@@ -1,6 +1,7 @@
 package hunter;
 
 import java.awt.Color;
+import java.util.List;
 
 import core.Agent;
 import core.Environnement;
@@ -25,26 +26,22 @@ public class Hunter extends Agent {
 
 	@Override
 	public void decide() throws Exception {
-		// System.out.println("x : " + posX + " posY : " + posY);
-		if (this.env.isAvailable(posX + 1, posY)) {
-			this.env.moveAgent(this, this.posX + 1, this.posY);
-			this.posX = this.env.convertInd(posX + 1);
-			this.posY = this.env.convertInd(posY);
-		}
+		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
+
 		target = this.env.getChasedAgent();
 		if(target != null){
-			this.map[target.getPosX()][target.getPosY()] = 1;
-			getLocalEnvironnement(target.getPosX(), target.getPosY());
-			
+			this.map[target.getPosX()][target.getPosY()] = 0;
+			distance(target.getPosX(), target.getPosY());
+			printMap();
 		}
-		printMap();
+		System.out.println("BestLocalPIck : " + this.bestLocalPath()[0] + ":" + this.bestLocalPath()[1]);
+		if (this.env.isAvailable(this.bestLocalPath()[0], this.bestLocalPath()[1])) {
+			this.env.moveAgent(this, this.bestLocalPath()[0], this.bestLocalPath()[1]);
+			this.posX = this.bestLocalPath()[0];
+			this.posY = this.bestLocalPath()[1];
+		}
 	}
 
-	public void distance() {
-		if (target == null)
-			return;
-
-	}
 
 	public void printMap() {
 		for (int i = 0; i < map.length; i++) {
@@ -56,7 +53,7 @@ public class Hunter extends Agent {
 		System.out.println("\n");
 	}
 
-	public void getLocalEnvironnement(int x, int y) {
+	public void distance(int x, int y) {
 //		System.out.println("call");
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
@@ -64,9 +61,9 @@ public class Hunter extends Agent {
 						|| j >= this.env.getEnvSize())
 					return;
 				if (this.env.getCell(i, j) == null) {
-					if (this.map[i][j] == 0) {
+					if (this.map[i][j] == 0 || this.map[i][j] > this.map[x][y]+1) {
 						this.map[i][j] = map[x][y]+1;
-						this.getLocalEnvironnement(i, j);
+						this.distance(i, j);
 					}
 				} else if (this.env.getCell(i, j).equals(this)) {
 					this.map[i][j] = -1;
@@ -74,6 +71,26 @@ public class Hunter extends Agent {
 
 			}
 		}
+	}
+	
+	public int[] bestLocalPath(){
+		int[] coo = new int[2];
+		int bestValue = Integer.MAX_VALUE;
+		for (int i = posX - 1; i <= posX + 1; i++) {
+			for (int j = posY - 1; j <= posY + 1; j++) {
+				if (i >= 0 & j >= 0 && i < this.env.getEnvSize()
+						&& j < this.env.getEnvSize()){
+					if(this.env.getCell(i, j) == null && this.map[i][j] < bestValue){
+						coo[0] = i;
+						coo[1] = j;
+						bestValue = this.map[i][j];
+					}
+				}
+					
+			}
+		}
+		
+		return coo;
 	}
 
 }

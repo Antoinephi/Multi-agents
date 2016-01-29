@@ -29,7 +29,7 @@ public class Target extends Agent{
 //			this.posX = this.env.convertInd(posX+1);
 //			this.posY = this.env.convertInd(posY);
 //		}
-		int dirX = r.nextInt(3)-1;
+		/*int dirX = r.nextInt(3)-1;
 		int dirY = r.nextInt(3)-1;
 		while(!this.env.isAvailable(posX+dirX, posY+dirY)){
 			dirX = r.nextInt(3)-1;
@@ -37,7 +37,7 @@ public class Target extends Agent{
 		}
 		this.env.moveAgent(this, posX+dirX, posY+dirY);
 		this.posX = this.env.convertInd(posX+dirX);
-		this.posY = this.env.convertInd(posY+dirY);
+		this.posY = this.env.convertInd(posY+dirY);*/
 		
 	}
 

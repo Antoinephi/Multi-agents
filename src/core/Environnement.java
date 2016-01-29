@@ -190,8 +190,10 @@ public class Environnement {
 
 	public Target getChasedAgent() {
 		for(Agent a : agents)
-			if(a instanceof Target)
+			if(a instanceof Target){
+				System.out.println(a.getPosX() + ":" +a.getPosY());
 				return (Target) a;
+			}
 		return null;
 	}
 	

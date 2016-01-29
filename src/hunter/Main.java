@@ -8,8 +8,8 @@ public class Main {
 	private static final int VIEW_SIZE = 200;
 	private static final int CELL_SIZE = 20;
 	private static final int NB_AGENTS = 1;
-	private static final int SIM_SPEED = 10;
-	private static final int NB_TURNS = 2;
+	private static final int SIM_SPEED = 1000;
+	private static final int NB_TURNS = 1000;
 	private static final boolean TORIC = false;
 	private static final boolean INFINITE_MODE = false;
 	private static final boolean LOGGING = false;
