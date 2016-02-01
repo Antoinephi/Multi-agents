@@ -1,9 +1,8 @@
 package core;
-import hunter.KeyboardListener;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,7 +26,6 @@ public abstract class View implements Observer 	{
 		this.cellSize = cellSize;
 		
 		this.panel = new JPanel();
-		this.panel.addKeyListener(new KeyboardListener());
 		this.panel.setPreferredSize(new Dimension(gridSize,gridSize));
 		this.panel.setBackground(Color.white);
 		this.frame.setLocationRelativeTo(null);
@@ -50,7 +48,9 @@ public abstract class View implements Observer 	{
 	
 	public abstract void draw(Agent a, Graphics g);
 	
-
+	public void addKeyListener(KeyListener k){
+		this.panel.addKeyListener(k);
+	}
 
 		
 }

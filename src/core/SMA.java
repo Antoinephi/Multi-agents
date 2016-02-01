@@ -38,6 +38,7 @@ public class SMA extends Observable {
 //		View v = new ParticulesView(viewSize,cellSize, "Billes");
 		this.addNewAgents();
 		agents = env.getAgents();
+
 		this.addObserver(v);
 		init_time = System.currentTimeMillis();
 		File log = new File("data.log");
@@ -77,8 +78,6 @@ public class SMA extends Observable {
 		this.nbTunas = 0;
 		this.nbSharks = 0;
 		this.nbTargets = 0;
-		Target.DIR_X = 0;
-		Target.DIR_Y = 0;
 		for(Agent a : agents){ // TODO : change to iterator
 //			System.out.println((Fish)a.get);
 			if(a instanceof Tuna){
