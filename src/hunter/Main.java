@@ -5,8 +5,8 @@ import core.View;
 
 public class Main {
 	
-	private static final int VIEW_SIZE = 500;
-	private static final int CELL_SIZE = 20;
+	private static final int VIEW_SIZE = 1000;
+	private static final int CELL_SIZE = 10;
 	private static final int NB_AGENTS = 1;
 	private static final int SIM_SPEED = 200;
 	private static final int NB_TURNS = 1000;
@@ -26,9 +26,9 @@ public class Main {
 //		}
 		new Target(sma.getEnv());
 		
-		for(int i = 0; i < NB_AGENTS; i++){
-			new Hunter(sma.getEnv());
-		}
+//		for(int i = 0; i < NB_AGENTS; i++){
+//			new Hunter(sma.getEnv());
+//		}
 		
 		sma.run(NB_TURNS);
 		

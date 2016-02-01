@@ -6,9 +6,9 @@ import core.Agent;
 import core.Environnement;
 
 public class Target extends Agent{
-	
-	public static int DIR_X;
-	public static int DIR_Y;
+
+	private int dirX;
+	private int dirY;
 
 	private boolean isAlive = true;
 
@@ -24,8 +24,8 @@ public class Target extends Agent{
 
 	@Override
 	public void decide() throws Exception {
-
-		if(!isAlive)
+		System.out.println("DIRX = " + dirX + " DIRY = " + dirY);
+		if(!isAlive)	
 			return;
 //		if(this.env.isAvailable(posX+1, posY)){
 //			this.env.moveAgent(this, this.posX+1, this.posY);
@@ -38,10 +38,10 @@ public class Target extends Agent{
 //			dirX = r.nextInt(3)-1;
 //			dirY = r.nextInt(3)-1;
 //		}
-		if(this.env.isAvailable(posX+DIR_X, posY+DIR_Y)){
-			this.env.moveAgent(this, posX+DIR_X, posY+DIR_Y);
-			this.posX = this.env.convertInd(posX+DIR_X);
-			this.posY = this.env.convertInd(posY+DIR_Y);
+		if(this.env.isAvailable(posX+dirX, posY+dirY)){
+			this.env.moveAgent(this, posX+dirX, posY+dirY);
+			this.posX = this.env.convertInd(posX+dirX);
+			this.posY = this.env.convertInd(posY+dirY);
 		}
 		
 	}
@@ -55,5 +55,10 @@ public class Target extends Agent{
 	
 	public boolean isAlive(){
 		return this.isAlive;
+	}
+	
+	public void changeDir(int dirX, int dirY){
+		this.dirX = dirX;
+		this.dirY = dirY;	
 	}
 }

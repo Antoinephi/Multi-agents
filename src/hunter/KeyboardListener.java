@@ -1,9 +1,13 @@
 package hunter;
 
 import java.awt.event.KeyEvent;
+
 import java.awt.event.KeyListener;
 
+
 public class KeyboardListener implements KeyListener{
+	
+	private Target t;
 
 	public void keyTyped(KeyEvent e) {
 //        System.out.println("Key typed: " + e.getKeyChar());
@@ -32,7 +36,8 @@ public class KeyboardListener implements KeyListener{
     }
 
     public void keyReleased(KeyEvent e) {
-//        System.out.println("Key released: " + e.getKeyChar());
+//    	Target.DIR_X = 0;
+//    	Target.DIR_Y = 0;
     }
 
 }
