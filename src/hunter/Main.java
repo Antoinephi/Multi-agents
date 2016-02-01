@@ -6,7 +6,7 @@ import core.View;
 public class Main {
 	
 	private static final int VIEW_SIZE = 500;
-	private static final int CELL_SIZE = 20;
+	private static final int CELL_SIZE = 10;
 	private static final int NB_AGENTS = 1;
 	private static final int SIM_SPEED = 200;
 	private static final int NB_TURNS = 1000;
@@ -20,10 +20,10 @@ public class Main {
 
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING);
 	
-//		
-//		for(int i = 0; i <80; i++){
-//			new WallAgent(sma.getEnv());
-//		}
+		
+		for(int i = 0; i <((VIEW_SIZE/CELL_SIZE)*10); i++){
+			new WallAgent(sma.getEnv());
+		}
 		new Target(sma.getEnv());
 		
 		for(int i = 0; i < NB_AGENTS; i++){
