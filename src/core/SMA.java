@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
+import particles.Main;
+
 import wator.Shark;
 import wator.Tuna;
 
@@ -35,7 +37,6 @@ public class SMA extends Observable {
 		
 		env = new Environnement(envSize,envSize, nbAgents, toric);
 		this.speed = speed;
-//		View v = new ParticulesView(viewSize,cellSize, "Billes");
 		this.addNewAgents();
 		agents = env.getAgents();
 
@@ -56,7 +57,7 @@ public class SMA extends Observable {
 			do{
 				turn();
 				Thread.sleep(this.speed);
-			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0);
+			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0 || Main.INFINITE_MODE);
 
 		} else {
 			for(int i = 0; i < nbTurns; i++){
