@@ -21,11 +21,14 @@ public class Target extends Agent implements KeyListener {
 	public Target(Environnement env) {
 		super(env);
 		this.c = new Color(237, 255, 74);
+		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
+
 	}
 
 	public Target(int posX, int posY, Environnement env) {
 		super(posX, posY, env);
 		this.c = new Color(237, 255, 74);
+		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class WatorView extends View{
 		super(gridSize, cellSize, name, showGrid);
 	}
 	
-	public void draw(Agent a, Graphics g){
+	public void draw(Agent a, int x, int y, Graphics g){
 		g.setColor(a.getColor());
 		g.fillRect(a.getPosX()*this.cellSize, a.getPosY()*this.cellSize, this.cellSize, this.cellSize);
 	}

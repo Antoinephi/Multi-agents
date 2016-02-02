@@ -11,7 +11,7 @@ public class Main {
 	private static final int SIM_SPEED = 60;
 	private static final int NB_TURNS = 1000;
 	private static final boolean TORIC = false;
-	private static final boolean INFINITE_MODE = false;
+	private static final boolean INFINITE_MODE = true;
 	private static final boolean LOGGING = false;
 	
 
@@ -28,6 +28,10 @@ public class Main {
 		for(int i = 0; i < NB_AGENTS; i++){
 			new Hunter(sma.getEnv());
 		}
+		
+//		for(int i = 0; i <1; i++){
+//			new Repulsor(sma.getEnv());
+//		}
 		
 		sma.run(NB_TURNS);
 		
