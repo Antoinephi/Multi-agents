@@ -16,7 +16,7 @@ public class Main {
 	
 
 	public static void main(String[] args) throws Exception {
-		View v = new ParticlesView(VIEW_SIZE,CELL_SIZE, "Particles simulation");
+		View v = new ParticlesView(VIEW_SIZE,CELL_SIZE, "Particles simulation", true);
 
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING);
 		for(int i = 0; i < NB_AGENTS; i++){

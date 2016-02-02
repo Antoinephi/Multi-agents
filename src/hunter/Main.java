@@ -5,7 +5,7 @@ import core.View;
 
 public class Main {
 	
-	private static final int VIEW_SIZE = 800;
+	private static final int VIEW_SIZE = 500;
 	private static final int CELL_SIZE = 10;
 	private static final int NB_AGENTS = 5;
 	private static final int SIM_SPEED = 60;
@@ -16,7 +16,7 @@ public class Main {
 	
 
 	public static void main(String[] args) throws Exception {
-		View v = new HunterView(VIEW_SIZE,CELL_SIZE, "Hunter simulation", true);
+		View v = new HunterView(VIEW_SIZE,CELL_SIZE, "Hunter simulation", true, true);
 		
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING);
 		for(int i = 0; i <((VIEW_SIZE/CELL_SIZE)*2); i++){

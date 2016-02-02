@@ -7,8 +7,8 @@ import core.View;
 
 public class WatorView extends View{
 
-	public WatorView(int gridSize, int cellSize, String name) {
-		super(gridSize, cellSize, name);
+	public WatorView(int gridSize, int cellSize, String name, boolean showGrid) {
+		super(gridSize, cellSize, name, showGrid);
 	}
 	
 	public void draw(Agent a, Graphics g){

@@ -4,9 +4,6 @@ import hunter.Target;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-
-import particles.Particle;
 
 
 public class Environnement {

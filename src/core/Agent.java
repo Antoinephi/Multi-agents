@@ -81,7 +81,7 @@ public abstract class Agent {
 		return this.c;
 	}
 	
-	public boolean equals(Object o){
-		return this.posX == ((Agent)o).getPosX() && this.posY == ((Agent)o).getPosY();
-	}
+//	public boolean equals(Object o){
+//		return this.posX == ((Agent)o).getPosX() && this.posY == ((Agent)o).getPosY();
+//	}
 }

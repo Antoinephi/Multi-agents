@@ -11,7 +11,7 @@ public class Target extends Agent implements KeyListener {
 
 
 
-	public int[][] map;
+	public static int[][] map;
 	private int dirX;
 	private int dirY;
 
