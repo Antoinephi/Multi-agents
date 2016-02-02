@@ -9,11 +9,9 @@ import core.Environnement;
 
 public class Target extends Agent implements KeyListener {
 
-	private int dirX;
-	private int dirY;
+
 
 	public int[][] map;
-	private int distance = Integer.MAX_VALUE;
 
 
 	private boolean isAlive = true;
@@ -34,12 +32,12 @@ public class Target extends Agent implements KeyListener {
 		if(!isAlive)	
 			return;
 		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
-		distance = Integer.MAX_VALUE;
 
 		this.map[posX][posY] = 0;
 		distance(posX, posY);
 		printMap();
-		
+//		dirX = 0;
+//		dirY = 0;
 //		int dirX = r.nextInt(3)-1;
 //		int dirY = r.nextInt(3)-1;
 //		while(!this.env.isAvailable(posX+dirX, posY+dirY)){
@@ -89,7 +87,7 @@ public class Target extends Agent implements KeyListener {
 							this.map[i][j] = map[x][y]+1;
 							this.distance(i, j);
 						}
-					} else if (this.env.getCell(i, j).equals(this) || this.env.getCell(i, j) instanceof WallAgent) {
+					} else if (!(this.env.getCell(i, j) instanceof Target)) {
 						this.map[i][j] = -1;
 					}
 				}

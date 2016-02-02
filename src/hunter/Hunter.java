@@ -65,7 +65,7 @@ public class Hunter extends Agent {
 			for (int j = posY - 1; j <= posY + 1; j++) {
 				if (i >= 0 && j >= 0 && i < this.env.getEnvSize()
 						&& j < this.env.getEnvSize()){
-					if(this.map[i][j] != -1 && this.map[i][j] < distance && i != posX && j != posY){
+					if(this.map[i][j] != -1 && this.map[i][j] < distance){
 						coo[0] = i;
 						coo[1] = j;
 						distance = this.map[i][j];
