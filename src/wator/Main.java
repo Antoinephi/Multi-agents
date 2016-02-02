@@ -7,7 +7,7 @@ public class Main {
 	
 	private static final int VIEW_SIZE = 500;
 	private static final int CELL_SIZE = 5;
-	private static final int SIM_SPEED = 1;
+	private static final int SIM_SPEED = 100;
 	private static final int NB_TURNS = 10000;
 	private static final boolean TORIC = true;
 	private static final boolean INFINITE_MODE = true;

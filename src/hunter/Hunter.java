@@ -28,19 +28,19 @@ public class Hunter extends Agent {
 		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
 		distance = Integer.MAX_VALUE;
 		int[] bestMove;
-		System.out.println("Current pos : " + posX + ":"+ posY);
+//		System.out.println("Current pos : " + posX + ":"+ posY);
 		
 		target = this.env.getChasedAgent();
 		if(target != null){
 			this.map = target.getMap();
 //			printMap();
 			bestMove = this.bestLocalPath();
-			System.out.println("BestLocalPIck : " + bestMove[0] + ":" + bestMove[1]);
-			System.out.println("Target : " +  target.getPosX() + ":" + target.getPosY());
+//			System.out.println("BestLocalPIck : " + bestMove[0] + ":" + bestMove[1]);
+//			System.out.println("Target : " +  target.getPosX() + ":" + target.getPosY());
 			if(this.env.getCell(bestMove[0], bestMove[1]) != null && this.env.getCell(bestMove[0], bestMove[1]).equals(target))
 				this.target.kill();
 			if (this.env.isAvailable(bestMove[0], bestMove[1])) {
-				System.out.println("best move used");
+//				System.out.println("best move used");
 				this.env.moveAgent(this, bestMove[0], bestMove[1]);
 				this.posX = bestMove[0];
 				this.posY = bestMove[1];
@@ -69,7 +69,7 @@ public class Hunter extends Agent {
 						coo[0] = i;
 						coo[1] = j;
 						distance = this.map[i][j];
-						System.out.println("i : " + i + " j : "+ j + " map : " + map[i][j]);
+//						System.out.println("i : " + i + " j : "+ j + " map : " + map[i][j]);
 					}
 				}
 					

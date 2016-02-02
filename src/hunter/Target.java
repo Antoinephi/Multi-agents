@@ -12,6 +12,8 @@ public class Target extends Agent implements KeyListener {
 
 
 	public int[][] map;
+	private int dirX;
+	private int dirY;
 
 
 	private boolean isAlive = true;
@@ -35,7 +37,7 @@ public class Target extends Agent implements KeyListener {
 
 		this.map[posX][posY] = 0;
 		distance(posX, posY);
-		printMap();
+//		printMap();
 //		dirX = 0;
 //		dirY = 0;
 //		int dirX = r.nextInt(3)-1;
@@ -44,10 +46,10 @@ public class Target extends Agent implements KeyListener {
 //			dirX = r.nextInt(3)-1;
 //			dirY = r.nextInt(3)-1;
 //		}
-		if(this.env.isAvailable(posX+dirX, posY+dirY)){
-			this.env.moveAgent(this, posX+dirX, posY+dirY);
-			this.posX = this.env.convertInd(posX+dirX);
-			this.posY = this.env.convertInd(posY+dirY);
+		if(this.env.isAvailable(posX+this.dirX, posY+this.dirY)){
+			this.env.moveAgent(this, posX+this.dirX, posY+this.dirY);
+			this.posX = this.env.convertInd(posX+this.dirX);
+			this.posY = this.env.convertInd(posY+this.dirY);
 		}
 		
 	}

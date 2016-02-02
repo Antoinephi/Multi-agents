@@ -5,13 +5,13 @@ import core.View;
 
 public class Main {
 	
-	private static final int VIEW_SIZE = 500;
+	private static final int VIEW_SIZE = 800;
 	private static final int CELL_SIZE = 10;
 	private static final int NB_AGENTS = 5;
 	private static final int SIM_SPEED = 60;
 	private static final int NB_TURNS = 1000;
 	private static final boolean TORIC = false;
-	private static final boolean INFINITE_MODE = true;
+	private static final boolean INFINITE_MODE = false;
 	private static final boolean LOGGING = false;
 	
 
