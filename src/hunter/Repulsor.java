@@ -12,14 +12,12 @@ public class Repulsor extends Agent {
 	public Repulsor(Environnement env) {
 		super(env);
 		this.c = new Color(255,0,0);
-		this.target = this.env.getChasedAgent();
 
 	}
 	
 	public Repulsor(int posX, int posY, Environnement env) {
 		super(posX, posY, env);
 		this.c = new Color(255,0,0);
-		this.target = this.env.getChasedAgent();
 
 	}
 
@@ -39,23 +37,38 @@ public class Repulsor extends Agent {
 			if(this.target != null){
 				this.target.getMap()[posX][posY] = -5;
 				updateNeibourhood();
-				System.out.println("posx " + posX + " posY " + posY);
+				printMap();
 			}
 		}
 	}
 
 	public void updateNeibourhood(){
 		System.out.println("OK");
-		for(int i = posX -1; i < posX+1; i++){
-			for(int j = posY -1; j < posY+1; j++){
+		for(int i = posX -2; i < posX+2; i++){
+			for(int j = posY -2; j < posY+2; j++){
 				if (i >= 0 && j >= 0 && i < this.env.getEnvSize()
 						&& j < this.env.getEnvSize()){
 //					System.out.println(i+":"+j);
-					this.target.getMap()[i][j] += (this.target.getMap()[i][j] != -1 ? 10 : 0);
+					this.target.getMap()[i][j] += (this.target.getMap()[i][j] != -1 ? 100 : 0);
 				}
 			}
 		}
 
 	}
+	
+	public void setTarget(Target t){
+		this.target = t;
+	}
+	
+	public void printMap() {
+		for (int i = 0; i < this.target.getMap().length; i++) {
+			for (int j = 0; j < this.target.getMap().length; j++) {
+				System.out.print(" " + this.target.getMap()[j][i]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
 
 }

@@ -24,16 +24,18 @@ public class SMA extends Observable {
 	private long init_time;
 	private boolean infinite;
 	private boolean logging;
+	private boolean fairMode;
 	
 	private int nbSharks;
 	private int nbTunas;
 	private int nbTargets;
 	
 	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
-			boolean toric, View v, int nbTurns, boolean infinite, boolean logging) throws Exception{
+			boolean toric, View v, int nbTurns, boolean infinite, boolean logging, boolean fairMode) throws Exception{
 		int envSize = viewSize/cellSize;
 		this.infinite = infinite;
 		this.logging = logging;
+		this.fairMode = fairMode;
 		
 		env = new Environnement(envSize,envSize, nbAgents, toric);
 		this.speed = speed;
@@ -120,7 +122,8 @@ public class SMA extends Observable {
 
 		this.setChanged();
 		this.notifyObservers();		
-		Collections.shuffle(agents);
+		if(fairMode)
+			Collections.shuffle(agents);
 	}
 	
 	private void removeDeadAgents(){

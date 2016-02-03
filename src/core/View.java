@@ -44,12 +44,12 @@ public abstract class View implements Observer 	{
 		if(showGrid)
 			paintGrid(g);
 
-		for(int i = 0; i <sma.getEnv().getEnvSize(); i++){
-			for(int j = 0; j <sma.getEnv().getEnvSize(); j++){
-//			for(Agent a : sma.getAgents()) {
-				draw(sma.getEnv().getCell(i, j),i, j, g);	
+//		for(int i = 0; i <sma.getEnv().getEnvSize(); i++){
+//			for(int j = 0; j <sma.getEnv().getEnvSize(); j++){
+			for(Agent a : sma.getAgents()) {
+				draw(a,0,0, g);	
 			}
-		}
+//		}
 		this.frame.pack();
         panel.requestFocusInWindow();
 
