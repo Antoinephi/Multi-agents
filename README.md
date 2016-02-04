@@ -3,12 +3,21 @@ TPs Systèmes Multi-agents (Particles, Wator, Hunter)
 
 ## Architecture Globale
 
+L'architecture globale se décompose en 4 élements :
+- L'environnement
+    C'est lui qui gère et organise l'environnement d'évolution des agents. Il gère ainsi les déplacements ainsi que les demandes de voisinnage. 
+Les agents sont représentés par un tableau à deux dimensions d'Agent et reste à null quand la case est vide.
+Il possède égalament une liste des Agents actuellement "en vie". Par la suite j'ai également rajouté une liste des nouveaux agents ainsi que de ceux qui venaient de mourrir au tour courant. C'est une solution simple pour contourner le problème de modification concurrente d'une liste en Java. La mise à jour avec la liste courrante étant faite à chaque fin de tour.
+- La vue
+- Le moteur
+- L'agent
+
 ## Particles
 
 La chambre à particules est un environnement dans lequels des billes (les agents) se déplacent en se heurtant les unes aux autres, ou aux murs (dans le cas ou le monde n'est pas torique).
 L'architecture globale est étendue avec un agent Particle, doté d'une intelligence basique. 
 Chaque agent est crée avec une direction (en X et Y) aléatoire (possiblement nulle) qui indique dans quelle direction il se déplacera à chaque tour.
-Cette direction est fixe, mais sera modifié à chaque collision avec une bille la direction étant inversée, en X et Y (x-1). En cas de collision avec un mur, pour simuler un angle de redirection, seule une des directions est changée (Y quand la collision a lieu en X et inversement).
+Cette direction est fixe, mais sera modifié à chaque collision avec une bille la direction étant inversée, en X et Y (x-1). En cas de collision avec un mur, pour simuler un angle de redirection, seule une direction est changée (Y quand la collision a lieu en X et inversement).
 
 ## Wator
 
