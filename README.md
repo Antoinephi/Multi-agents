@@ -4,13 +4,17 @@ TPs Systèmes Multi-agents (Particles, Wator, Hunter)
 ## Architecture Globale
 
 L'architecture globale se décompose en 4 élements :
-- L'environnement
+- L'environnement :
     C'est lui qui gère et organise l'environnement d'évolution des agents. Il gère ainsi les déplacements ainsi que les demandes de voisinnage. 
 Les agents sont représentés par un tableau à deux dimensions d'Agent et reste à null quand la case est vide.
 Il possède égalament une liste des Agents actuellement "en vie". Par la suite j'ai également rajouté une liste des nouveaux agents ainsi que de ceux qui venaient de mourrir au tour courant. C'est une solution simple pour contourner le problème de modification concurrente d'une liste en Java. La mise à jour avec la liste courrante étant faite à chaque fin de tour.
-- La vue
+- La vue :
+    La vue est réalisée avec Swing et basé sur le DP Observer/Observable. A chaque fin de tour, le moteur notifie la vue (l'observeur donc) qui se met à jour.
+Cette dernière est simplement composée d'une JFrame et d'un JPanel dans lequel est repaint à chaque mise à jour, les différents agents. Une méthode permet également d'ajouter une grille.
 - Le moteur
+    La classe SMA, gère l'ensemble de la simulation, c'est elle qui gère les tours ainsi que les conditions d'arrêts, les mises à jours des Agents (morts, nouveaux nés, etc) ainsi que la notification à la vue.
 - L'agent
+    Classe abstraite de laquelle vont hériter tous les agents des simulations. Elle met en place les paramètres de base comme la position ou la direction. 
 
 ## Particles
 
