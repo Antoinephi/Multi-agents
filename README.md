@@ -23,7 +23,7 @@ L'architecture globale est étendue avec un agent Particle, doté d'une intellig
 Chaque agent est crée avec une direction (en X et Y) aléatoire (possiblement nulle) qui indique dans quelle direction il se déplacera à chaque tour.
 Cette direction est fixe, mais sera modifié à chaque collision avec une bille la direction étant inversée, en X et Y (x-1). En cas de collision avec un mur, pour simuler un angle de redirection, seule une direction est changée (Y quand la collision a lieu en X et inversement).
 
-# Exécution
+### Exécution
 
 Java  -jar multi-agents.jar -particles [-gridSize] [-cellSize] [-nbParticles]
 
@@ -37,7 +37,7 @@ Un agent Tuna s'occupe de spécifier les caractèristiques propres au thon comme
 Enfin, l'agent Shark, représente un requin, et son comportement propre. Ce dernier a comme objectif principal de se reproduire.
 Ainsi, un requin cherchera en priorité à se reproduire, puis à se nourrir et enfin à se déplacer. A noter qu'il se déplacera systématiquement si possible, même après reproduction et/ou s'être nourrit.
 
-# Exécution
+### Exécution
 
 Java  -jar multi-agents.jar -wator [-gridSize] [-cellSize] [-nbSharks] [-nbTunas]
 
@@ -51,6 +51,6 @@ Cette dernière est utilisée par les agent Hunter pour trouver le plus court ch
 Pour cela, le chasseur étudie son voisinnage (de Moore) pour trouver le meilleur choix, c'est à dire la valeur la plus faible dans son voisinage immédiat pour le rapproche le plus de sa cible.
 Un dernier agent est ajouté, l'agent Wall. Comme son nom l'indique c'est un agent qui ne fait rien, si ce n'est bloquer la place pour donner un relief à l'environnement.
 
-# Exécution 
+### Exécution 
 
 Java  -jar multi-agents.jar -hunter [-gridSize] [-cellSize] [-nbHunters]
