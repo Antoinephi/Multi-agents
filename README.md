@@ -11,9 +11,9 @@ Il possède égalament une liste des Agents actuellement "en vie". Par la suite 
 - La vue :
     La vue est réalisée avec Swing et basé sur le DP Observer/Observable. A chaque fin de tour, le moteur notifie la vue (l'observeur donc) qui se met à jour.
 Cette dernière est simplement composée d'une JFrame et d'un JPanel dans lequel est repaint à chaque mise à jour, les différents agents. Une méthode permet également d'ajouter une grille.
-- Le moteur
+- Le moteur :
     La classe SMA, gère l'ensemble de la simulation, c'est elle qui gère les tours ainsi que les conditions d'arrêts, les mises à jours des Agents (morts, nouveaux nés, etc) ainsi que la notification à la vue.
-- L'agent
+- L'agent :
     Classe abstraite de laquelle vont hériter tous les agents des simulations. Elle met en place les paramètres de base comme la position ou la direction. 
 
 ## Particles
@@ -22,6 +22,10 @@ La chambre à particules est un environnement dans lequels des billes (les agent
 L'architecture globale est étendue avec un agent Particle, doté d'une intelligence basique. 
 Chaque agent est crée avec une direction (en X et Y) aléatoire (possiblement nulle) qui indique dans quelle direction il se déplacera à chaque tour.
 Cette direction est fixe, mais sera modifié à chaque collision avec une bille la direction étant inversée, en X et Y (x-1). En cas de collision avec un mur, pour simuler un angle de redirection, seule une direction est changée (Y quand la collision a lieu en X et inversement).
+
+# Exécution
+
+Java  -jar multi-agents.jar -particles [-gridSize] [-cellSize] [-nbParticles]
 
 ## Wator
 
@@ -33,6 +37,11 @@ Un agent Tuna s'occupe de spécifier les caractèristiques propres au thon comme
 Enfin, l'agent Shark, représente un requin, et son comportement propre. Ce dernier a comme objectif principal de se reproduire.
 Ainsi, un requin cherchera en priorité à se reproduire, puis à se nourrir et enfin à se déplacer. A noter qu'il se déplacera systématiquement si possible, même après reproduction et/ou s'être nourrit.
 
+# Exécution
+
+Java  -jar multi-agents.jar -wator [-gridSize] [-cellSize] [-nbSharks] [-nbTunas]
+
+
 ## Hunter
 
 Le hunter est une simulation dans un environnement clos, dans lequel un ou plusieurs chasseurs ont pour but d'attraper une cible.
@@ -41,3 +50,7 @@ Cet agent calcule à chacun de ses déplacements une carte des distances à l'ai
 Cette dernière est utilisée par les agent Hunter pour trouver le plus court chemin jusqu'à la cible et l'intercepter.
 Pour cela, le chasseur étudie son voisinnage (de Moore) pour trouver le meilleur choix, c'est à dire la valeur la plus faible dans son voisinage immédiat pour le rapproche le plus de sa cible.
 Un dernier agent est ajouté, l'agent Wall. Comme son nom l'indique c'est un agent qui ne fait rien, si ce n'est bloquer la place pour donner un relief à l'environnement.
+
+# Exécution 
+
+Java  -jar multi-agents.jar -hunter [-gridSize] [-cellSize] [-nbHunters]
