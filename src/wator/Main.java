@@ -22,10 +22,10 @@ public class Main {
 
 
 	public static void main(String[] args) throws Exception {
-		View v = new WatorView(VIEW_SIZE,CELL_SIZE, "Wator simulation", SHOW_GRID);
+		View v = new View(VIEW_SIZE,CELL_SIZE, "Wator simulation", SHOW_GRID);
 
 		SMA sma = new SMA(NB_TUNA+NB_SHARKS,VIEW_SIZE, 
-				CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE);
+				CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE, 0);
 		for(int i = 0; i < NB_TUNA; i++){
 			new Tuna(sma.getEnv(), TUNA_BREED);
 		}

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public abstract class View implements Observer 	{
+public class View implements Observer 	{
 
 	protected JPanel panel;
 	protected JFrame frame;
@@ -55,7 +55,10 @@ public abstract class View implements Observer 	{
 
 	}
 	
-	public abstract void draw(Agent a, int x, int y,Graphics g);
+	public void draw(Agent a, int x, int y, Graphics g){
+		g.setColor(a.getColor());
+		g.fillRect(a.getPosX()*this.cellSize, a.getPosY()*this.cellSize, this.cellSize, this.cellSize);
+	}
 	
 	public void addKeyListener(KeyListener k){
 		this.panel.addKeyListener(k);

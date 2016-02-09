@@ -1,4 +1,5 @@
 package core;
+import hunter.Hunter;
 import hunter.Target;
 
 import java.io.BufferedWriter;
@@ -19,7 +20,7 @@ public class SMA extends Observable {
 	
 	private Environnement env;
 	private List<Agent> agents;
-	private int speed;
+	private int simSpeed;
 	private BufferedWriter writer;
 	private long init_time;
 	private boolean infinite;
@@ -29,17 +30,21 @@ public class SMA extends Observable {
 	private int nbSharks;
 	private int nbTunas;
 	private int nbTargets;
+	private int agentSpeed;
+	
 	private boolean particles = false;
 	
 	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
-			boolean toric, View v, int nbTurns, boolean infinite, boolean logging, boolean fairMode) throws Exception{
+			boolean toric, View v, int nbTurns, boolean infinite, boolean logging, boolean fairMode, int agentSpeed) throws Exception{
 		int envSize = viewSize/cellSize;
 		this.infinite = infinite;
 		this.logging = logging;
 		this.fairMode = fairMode;
 		
 		env = new Environnement(envSize,envSize, nbAgents, toric);
-		this.speed = speed;
+		this.simSpeed = speed;
+		this.agentSpeed = agentSpeed;
+		
 		this.addNewAgents();
 		agents = env.getAgents();
 
@@ -58,7 +63,7 @@ public class SMA extends Observable {
 		if(infinite){
 			do{
 				turn();
-				Thread.sleep(this.speed);
+				Thread.sleep(this.simSpeed);
 			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0 || this.particles);
 
 		} else {
@@ -66,7 +71,7 @@ public class SMA extends Observable {
 	
 				turn();
 	
-				Thread.sleep(this.speed);
+				Thread.sleep(this.simSpeed);
 			}
 		}
 		if(logging)
@@ -101,6 +106,10 @@ public class SMA extends Observable {
 					this.env.addDeadAgent(a);
 				else
 					this.nbTargets++;
+			} else if(a instanceof Hunter){
+				for(int i = 0; i <agentSpeed; i++){
+					a.decide();
+				}
 			}
 			a.decide();
 		}
