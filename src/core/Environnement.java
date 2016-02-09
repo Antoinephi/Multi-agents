@@ -1,10 +1,9 @@
 package core;
+import hunter.Target;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-
-import particles.Particle;
 
 
 public class Environnement {
@@ -53,13 +52,19 @@ public class Environnement {
 	}
 
 	public boolean isAvailable(int x, int y) {
-		if(this.toric){
-			x = (x+this.espace.length)%this.espace.length;
-			y = (y+this.espace.length)%this.espace.length;
-		}
-		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0){
-			return this.espace[x][y] == null;
-		}
+//		if(this.toric){
+//			x = (x+this.espace.length)%this.espace.length;
+//			y = (y+this.espace.length)%this.espace.length;
+//		}
+//		if(x < this.espace.length && x >= 0 && y < this.espace.length && y >=0){
+//			System.out.println("OUI");
+//
+//			return this.espace[x][y] == null;
+//		}
+//		System.out.println("NON");
+//		return false;
+		if(convertInd(x) !=-1 && convertInd(y) != -1)
+			return this.espace[convertInd(x)][convertInd(y)] == null;
 		return false;
 	}
 
@@ -117,9 +122,10 @@ public class Environnement {
 //			return this.espace[x][y];
 //		else
 //			return null;
-		if(convertInd(x)!= -1 && convertInd(y) != -1)
+		if(convertInd(x)!= -1 && convertInd(y) != -1){
+//			System.out.println(this.espace[convertInd(x)][convertInd(y)]);
 			return this.espace[convertInd(x)][convertInd(y)];
-		else
+		} else
 			return null;
 		
 	}
@@ -176,9 +182,19 @@ public class Environnement {
 		else if(i < this.espace.length && i >= 0)
 			return i;
 		else
-//			throw new ArrayIndexOutOfBoundsException();
 			return -1;
 			
 	}
+
+	public Target getChasedAgent() {
+		for(Agent a : agents)
+			if(a instanceof Target){
+//				System.out.println("Target : " + a.getPosX() + ":" +a.getPosY());
+				return (Target) a;
+			}
+		return null;
+	}
+	
+
 	
 }

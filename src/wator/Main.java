@@ -7,7 +7,7 @@ public class Main {
 	
 	private static final int VIEW_SIZE = 500;
 	private static final int CELL_SIZE = 5;
-	private static final int SIM_SPEED = 1;
+	private static final int SIM_SPEED = 50;
 	private static final int NB_TURNS = 10000;
 	private static final boolean TORIC = true;
 	private static final boolean INFINITE_MODE = true;
@@ -17,12 +17,15 @@ public class Main {
 	private static final int TUNA_BREED = 2;
 	private static final int NB_SHARKS = 500;
 	private static final int NB_TUNA = 1000;
+	private static final boolean FAIR_MODE = true;
+	private static final boolean SHOW_GRID = true;
+
 
 	public static void main(String[] args) throws Exception {
-		View v = new WatorView(VIEW_SIZE,CELL_SIZE, "Wator simulation");
+		View v = new WatorView(VIEW_SIZE,CELL_SIZE, "Wator simulation", SHOW_GRID);
 
 		SMA sma = new SMA(NB_TUNA+NB_SHARKS,VIEW_SIZE, 
-				CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING);
+				CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE);
 		for(int i = 0; i < NB_TUNA; i++){
 			new Tuna(sma.getEnv(), TUNA_BREED);
 		}

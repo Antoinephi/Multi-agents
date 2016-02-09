@@ -7,8 +7,7 @@ import core.Environnement;
 
 public class Particle extends Agent{
 	
-	protected int dirX;
-	protected int dirY;
+
 	
 	public Particle(int posX, int posY, int dirX, int dirY, Environnement env) {
 		super(posX, posY, env);
@@ -21,7 +20,7 @@ public class Particle extends Agent{
 	public Particle(Environnement env){
 		super(env);
 		this.c = new Color(r.nextInt(230), r.nextInt(230), r.nextInt(230));
-
+		
 	}
 
 	public void decide() throws Exception{
@@ -30,9 +29,11 @@ public class Particle extends Agent{
 		int newY = posY+dirY;
 		int oldX = this.posX;
 		int oldY = this.posY;
-		
+
 		if(dirX == 0 && dirY == 0)
 			return;
+		
+
 		
 		if(env.isToric()){
 			newX = env.convertToToric(newX);

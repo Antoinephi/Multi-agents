@@ -1,10 +1,14 @@
 package core;
+import hunter.Target;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+
+import particles.Main;
 
 import wator.Shark;
 import wator.Tuna;
@@ -20,21 +24,24 @@ public class SMA extends Observable {
 	private long init_time;
 	private boolean infinite;
 	private boolean logging;
+	private boolean fairMode;
 	
 	private int nbSharks;
 	private int nbTunas;
+	private int nbTargets;
 	
 	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
-			boolean toric, View v, int nbTurns, boolean infinite, boolean logging) throws Exception{
+			boolean toric, View v, int nbTurns, boolean infinite, boolean logging, boolean fairMode) throws Exception{
 		int envSize = viewSize/cellSize;
 		this.infinite = infinite;
 		this.logging = logging;
+		this.fairMode = fairMode;
 		
 		env = new Environnement(envSize,envSize, nbAgents, toric);
 		this.speed = speed;
-//		View v = new ParticulesView(viewSize,cellSize, "Billes");
 		this.addNewAgents();
 		agents = env.getAgents();
+
 		this.addObserver(v);
 		init_time = System.currentTimeMillis();
 		File log = new File("data.log");
@@ -52,7 +59,7 @@ public class SMA extends Observable {
 			do{
 				turn();
 				Thread.sleep(this.speed);
-			}while(this.nbSharks > 0 && this.nbTunas > 0);
+			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0);
 
 		} else {
 			for(int i = 0; i < nbTurns; i++){
@@ -73,6 +80,7 @@ public class SMA extends Observable {
 		long time = System.currentTimeMillis();
 		this.nbTunas = 0;
 		this.nbSharks = 0;
+		this.nbTargets = 0;
 		for(Agent a : agents){ // TODO : change to iterator
 //			System.out.println((Fish)a.get);
 			if(a instanceof Tuna){
@@ -88,6 +96,11 @@ public class SMA extends Observable {
 					this.env.addDeadAgent(a);
 
 //				a.decide();
+			} else if(a instanceof Target){
+				if(!((Target)a).isAlive())
+					this.env.addDeadAgent(a);
+				else
+					this.nbTargets++;
 			}
 			a.decide();
 		}
@@ -109,7 +122,8 @@ public class SMA extends Observable {
 
 		this.setChanged();
 		this.notifyObservers();		
-		Collections.shuffle(agents);
+		if(fairMode)
+			Collections.shuffle(agents);
 	}
 	
 	private void removeDeadAgents(){
