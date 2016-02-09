@@ -21,6 +21,7 @@ public class Main {
 		View v = new ParticlesView(VIEW_SIZE,CELL_SIZE, "Particles simulation", SHOW_GRID);
 
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE);
+		sma.setParticleMode();
 		for(int i = 0; i < NB_AGENTS; i++){
 			new Particle(sma.getEnv());
 		}

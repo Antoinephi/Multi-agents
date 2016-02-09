@@ -29,6 +29,7 @@ public class SMA extends Observable {
 	private int nbSharks;
 	private int nbTunas;
 	private int nbTargets;
+	private boolean particles = false;
 	
 	public SMA(int nbAgents, int viewSize, int cellSize, int speed, 
 			boolean toric, View v, int nbTurns, boolean infinite, boolean logging, boolean fairMode) throws Exception{
@@ -49,8 +50,7 @@ public class SMA extends Observable {
 			writer = new BufferedWriter(new FileWriter(log));
 		
 	}
-	
-	
+		
 	public void run(int nbTurns) throws Exception{
 		long time = System.currentTimeMillis();
 		this.addNewAgents();
@@ -59,7 +59,7 @@ public class SMA extends Observable {
 			do{
 				turn();
 				Thread.sleep(this.speed);
-			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0);
+			}while(this.nbSharks > 0 && this.nbTunas > 0 || this.nbTargets > 0 || this.particles);
 
 		} else {
 			for(int i = 0; i < nbTurns; i++){
@@ -147,6 +147,10 @@ public class SMA extends Observable {
 	
 	public List<Agent> getAgents(){
 		return this.agents;
+	}
+	
+	public void setParticleMode(){
+		this.particles = true;
 	}
 	
 }
