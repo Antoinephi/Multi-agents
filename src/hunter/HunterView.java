@@ -12,9 +12,8 @@ public class HunterView extends View{
 	
 	private boolean displayNum = false;
 
-	public HunterView(int gridSize, int cellSize, String name, boolean displayNum, boolean showGrid) {
+	public HunterView(int gridSize, int cellSize, String name, boolean showGrid) {
 		super(gridSize, cellSize, name, showGrid);
-		this.displayNum = displayNum;
 	}
 	
 	public void update(Observable arg0, Object arg1) {
@@ -35,7 +34,7 @@ public class HunterView extends View{
 	}
 	
 	public void draw(Agent a,int x, int y, Graphics g){
-		if(displayNum && a == null){
+		if(a == null){
 			g.setColor(new Color((Target.map[x][y]*5) > 255 ? 255 :(Target.map[x][y]*4) ));
 //			g.setColor(Color.BLACK);
 //			g.drawString(Target.map[x][y]+"", x*cellSize, y*cellSize);

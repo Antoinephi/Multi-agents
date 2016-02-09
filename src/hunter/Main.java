@@ -14,13 +14,13 @@ public class Main {
 	private static final boolean INFINITE_MODE = true;
 	private static final boolean LOGGING = false;
 	private static final boolean FAIR_MODE = false;
-	private static final boolean DISPLAY_NUM = true;
 	private static final boolean SHOW_GRID = true;
+	private static final int SPEED_FACTOR = 2;
 
 	public static void main(String[] args) throws Exception {
-		View v = new HunterView(VIEW_SIZE,CELL_SIZE, "Hunter simulation", SHOW_GRID,DISPLAY_NUM);
+		View v = new HunterView(VIEW_SIZE,CELL_SIZE, "Hunter simulation", SHOW_GRID);
 		
-		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE);
+		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE, SPEED_FACTOR);
 		
 		for(int i = 0; i < NB_AGENTS; i++){
 			new Hunter(sma.getEnv());
