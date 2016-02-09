@@ -1,7 +1,6 @@
 package core;
 
 import particles.Particle;
-import particles.ParticlesView;
 import hunter.Hunter;
 import hunter.HunterView;
 import hunter.Target;
@@ -77,7 +76,7 @@ public class Main {
 
 		
 		
-		View v = new ParticlesView(VIEW_SIZE,CELL_SIZE, "Particles simulation", SHOW_GRID);
+		View v = new View(VIEW_SIZE,CELL_SIZE, "Particles simulation", SHOW_GRID);
 
 		SMA sma = new SMA(NB_AGENTS,VIEW_SIZE, CELL_SIZE, SIM_SPEED, TORIC, v, NB_TURNS, INFINITE_MODE, LOGGING, FAIR_MODE, 0);
 		sma.setParticleMode();

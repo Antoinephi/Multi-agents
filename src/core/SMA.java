@@ -9,8 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
-import particles.Main;
-
 import wator.Shark;
 import wator.Tuna;
 
