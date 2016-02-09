@@ -107,7 +107,7 @@ public class SMA extends Observable {
 				else
 					this.nbTargets++;
 			} else if(a instanceof Hunter){
-				for(int i = 0; i <agentSpeed; i++){
+				for(int i = 0; i <agentSpeed-1; i++){
 					a.decide();
 				}
 			}
