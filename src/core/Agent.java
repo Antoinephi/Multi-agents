@@ -46,8 +46,6 @@ public abstract class Agent {
 	
 	public abstract void decide() throws Exception;
 	
-	
-	@Override
 	public String toString() {
 		return "Agent [posX=" + posX + ", posY=" + posY + ", dirX=" + dirX
 				+ ", dirY=" + dirY + ", env=" + env  + "]";
@@ -80,8 +78,4 @@ public abstract class Agent {
 	public Color getColor(){
 		return this.c;
 	}
-	
-//	public boolean equals(Object o){
-//		return this.posX == ((Agent)o).getPosX() && this.posY == ((Agent)o).getPosY();
-//	}
 }

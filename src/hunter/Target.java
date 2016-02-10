@@ -31,24 +31,13 @@ public class Target extends Agent implements KeyListener {
 		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
 	}
 
-	@Override
 	public void decide() throws Exception {
-//		System.out.println("DIRX = " + dirX + " DIRY = " + dirY);
 		if(!isAlive)	
 			return;
 		map = new int[this.env.getEnvSize()][this.env.getEnvSize()];
 
-		this.map[posX][posY] = 0;
+		map[posX][posY] = 0;
 		distance(posX, posY);
-//		printMap();
-//		dirX = 0;
-//		dirY = 0;
-//		int dirX = r.nextInt(3)-1;
-//		int dirY = r.nextInt(3)-1;
-//		while(!this.env.isAvailable(posX+dirX, posY+dirY)){
-//			dirX = r.nextInt(3)-1;
-//			dirY = r.nextInt(3)-1;
-//		}
 		if(this.env.isAvailable(posX+this.dirX, posY+this.dirY)){
 			this.env.moveAgent(this, posX+this.dirX, posY+this.dirY);
 			this.posX = this.env.convertInd(posX+this.dirX);
@@ -57,16 +46,6 @@ public class Target extends Agent implements KeyListener {
 		
 	}
 	
-	public void printMap() {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map.length; j++) {
-				System.out.print(" " + map[j][i]);
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-
 	public void kill(){
 		System.out.println("killed");
 		this.isAlive = false;
@@ -79,21 +58,18 @@ public class Target extends Agent implements KeyListener {
 	}
 	
 	public void distance(int x, int y) {
-//		System.out.println("call");
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
 				if (i < 0 || j < 0 || i >= this.env.getEnvSize()
 						|| j >= this.env.getEnvSize()){
-//					System.out.println("returned" + i+":"+j);
 				} else {
 					if (this.env.getCell(i, j) == null) {
-						if (this.map[i][j] == 0 || this.map[i][j] > this.map[x][y]+1) {
-//							System.out.println("updated map");
-							this.map[i][j] = map[x][y]+1;
+						if (map[i][j] == 0 || map[i][j] > map[x][y]+1) {
+							map[i][j] = map[x][y]+1;
 							this.distance(i, j);
 						}
 					} else if (!(this.env.getCell(i, j) instanceof Target)) {
-						this.map[i][j] = -1;
+						map[i][j] = -1;
 					}
 				}
 			}
@@ -102,7 +78,7 @@ public class Target extends Agent implements KeyListener {
 	
 	
 	public int[][] getMap(){
-		return this.map;
+		return map;
 	}
 
 	public void keyTyped(KeyEvent e) {

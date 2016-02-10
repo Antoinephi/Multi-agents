@@ -55,7 +55,6 @@ public class SMA extends Observable {
 	}
 		
 	public void run(int nbTurns) throws Exception{
-		long time = System.currentTimeMillis();
 		this.addNewAgents();
 
 		if(infinite){
@@ -66,9 +65,7 @@ public class SMA extends Observable {
 
 		} else {
 			for(int i = 0; i < nbTurns; i++){
-	
 				turn();
-	
 				Thread.sleep(this.simSpeed);
 			}
 		}
@@ -79,26 +76,18 @@ public class SMA extends Observable {
 	
 
 	public void turn() throws Exception{
-//		System.out.println("Nombre d'agents : " + agents.size());
-		long time = System.currentTimeMillis();
 		this.nbTunas = 0;
 		this.nbSharks = 0;
 		this.nbTargets = 0;
-		for(Agent a : agents){ // TODO : change to iterator
-//			System.out.println((Fish)a.get);
+		for(Agent a : agents){
 			if(a instanceof Tuna){
 				this.nbTunas++;
 				if(!((Tuna)a).isAlive())
 					this.env.addDeadAgent(a);
-//				System.out.println(a);
-//				System.out.println(a);
-//				a.decide();
 			} else if(a instanceof Shark) {
 				this.nbSharks++;
 				if(!((Shark)a).isAlive())
 					this.env.addDeadAgent(a);
-
-//				a.decide();
 			} else if(a instanceof Target){
 				if(!((Target)a).isAlive())
 					this.env.addDeadAgent(a);
@@ -117,16 +106,10 @@ public class SMA extends Observable {
 			writer.write(nbTunas + ";");
 			writer.write(nbSharks + ";\n");
 		}
-//		System.out.println("1-Nombre d'agents : " + agents.size());
-//		System.out.println("\t- Tunas : " + nbTunas);
-//		System.out.println("\t- Sharks : " + nbSharks);
 
 		this.removeDeadAgents();
-//		System.out.println("2-Nombre d'agents : " + agents.size());
-
 		this.addNewAgents();
-//		System.out.println("3-Nombre d'agents : " + agents.size());
-
+		
 		this.setChanged();
 		this.notifyObservers();		
 		if(fairMode)
@@ -134,13 +117,8 @@ public class SMA extends Observable {
 	}
 	
 	private void removeDeadAgents(){
-//		System.out.println("SIZE : " + this.env.getDeadAgents().size());
-//		System.out.println("Nombre d'agents d : " + agents.size());
 		this.env.getAgents().removeAll(this.env.getDeadAgents());
-
 		this.env.getDeadAgents().clear();
-//		System.out.println("Nombre d'agents f : " + agents.size());
-
 	}
 	
 	private void addNewAgents(){

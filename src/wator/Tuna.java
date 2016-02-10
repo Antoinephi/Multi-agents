@@ -16,10 +16,8 @@ public class Tuna extends Fish {
 		this.c = new Color(208, 0, 0);
 	}
 	
-	@Override
 	public void decide() throws Exception {
 		if(!this.isAlive){
-//			System.out.println("DEAD : tuna");
 			return;
 		}
 		this.updateParameters();

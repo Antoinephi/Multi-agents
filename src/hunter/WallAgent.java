@@ -18,7 +18,6 @@ public class WallAgent extends Agent{
 
 	}
 
-	@Override
 	public void decide() throws Exception {
 		
 	}

@@ -34,11 +34,6 @@ public abstract class Fish extends Agent {
 	public abstract String getTypeOf();
 
 	protected void reproduce(Fish f){
-//		System.out.println(">>>>>>>reproduce");
-//		System.out.println("x  : "  + x + " y : " + y);
-//			throw new IllegalAccessError("Cannot create Fish in non-empty cell");
-//		this.env.getEspace()[f.getPosX()][f.getPosY()] = f;
-//		this.env.addNewAgent(f);
 		this.nbBreed = INIT_BREED;
 	}
 	
@@ -61,21 +56,15 @@ public abstract class Fish extends Agent {
 		Agent a;
 		for(int i = this.posX-1; i <= this.posX+1; i++){
 			for(int j = this.posY-1; j <= this.posY+1; j++){
-//				System.out.println("i : " + i + " j : " + j);
 				a = this.env.getCell(i, j);
 				if(a == null && this.env.convertInd(i) != -1 && this.env.convertInd(j) != -1){
 					int[] tab = {this.env.convertInd(i),this.env.convertInd(j)};
 					nearbyEmptyCells.add(tab);
-//					System.out.println("NONE");
 				} else if(a instanceof Tuna){
 					closeTunas.add((Tuna)a);
-//					System.out.println("TUNA");
 				} else if(a instanceof Shark){
 					closeSharks.add((Shark)a);
-//					System.out.println("SHARK");
-				} else {
-//					System.out.println("OTHER ?");
-				}
+				} 
 			}
 		}
 		Collections.shuffle(nearbyEmptyCells);
